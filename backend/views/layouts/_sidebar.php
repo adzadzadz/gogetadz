@@ -55,6 +55,21 @@ $menuItems[] = [
     'label' => 'Account',
 ];
 
+// if (Yii::$app->) {
+//     # code...
+// }
+$menuItems[] = [
+    // 'url' => [ Url::to(['/user/settings/profile']) ],
+    'icon' => 'cog',
+    'label' => 'Admin Controls',
+    'items' => [
+        [
+            'url' => [ Url::to(['/advertisement']) ],
+            'icon' => 'cog',
+            'label' => 'Advertisements',
+        ]
+    ]
+];
 
 $menuItems[] = [
     'url' => [ Url::to(["/site/click-ads"]) ],

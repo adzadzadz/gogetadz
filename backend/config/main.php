@@ -62,11 +62,12 @@ return [
     'modules' => [
         'user' => [
             'class' => 'dektrium\user\Module',
-            'enableUnconfirmedLogin' => true,
+            // 'enableUnconfirmedLogin' => true,
             'confirmWithin' => 21600,
             'cost' => 12,
             'admins' => ['admin']
         ],
+        'rbac' => 'dektrium\rbac\RbacWebModule',
     ],
     'params' => $params,
 ];

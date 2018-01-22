@@ -65,7 +65,13 @@ class SiteController extends Controller
 
     public function actionClickAds()
     {
-        return $this->render('clickads');
+        $ads = \app\models\Advertisement::find()->all();
+        $userAds = \app\models\UserAdvertisement::getAllDone();
+
+        return $this->render('clickads', [
+            'ads' => $ads,
+            'userAds' => $userAds
+        ]);
     }
 
     /**
