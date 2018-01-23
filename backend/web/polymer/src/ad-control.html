@@ -1,0 +1,87 @@
+<link rel="import" href="/polymer/vendor/bower/polymer/polymer-element.html">
+<link rel="import" href="/polymer/vendor/bower/paper-dialog/paper-dialog.html">
+<link rel="import" href="/polymer/vendor/bower/paper-progress/paper-progress.html">
+
+<dom-module id="ad-control">
+  <template>
+    <style>
+      :host {
+        display: block;
+        /*z-index: 999999;*/
+        /*position: relative;*/
+      }
+      paper-progress {
+        width: 100%;
+      }
+      paper-dialog {
+        z-index: 999999;
+      }
+    </style>
+    <div class="img-wrap">
+      <div id="modalTrigger" class="modal-trigger" data-toggle="modal" data-target="[[dataTarget]]" on-tap="_showModal">
+        <img src="[[imgUrl]]" alt="" width="100%">
+        <div id="text" class="text">
+
+        </div>
+      </div>
+    </div>
+
+    <paper-dialog id="modal" modal>
+      <section id="content">
+        <paper-progress value="[[progress]]"></paper-progress>
+        <slot></slot>
+      </section>
+      <div class="buttons">
+        <paper-button dialog-confirm autofocus>Tap me to close</paper-button>
+      </div>
+    </paper-dialog>
+  </template>
+
+  <script>
+    class AdControl extends Polymer.Element {
+      static get is() { return 'ad-control'; }
+      static get properties() {
+        return {
+          dataTarget: String,
+          // cursor: Boolean,
+          imgUrl: String,
+          activate: Boolean,
+          counter: Number,
+          progress: Number,
+        };
+      }
+
+      ready() {
+        super.ready();
+
+        this.addEventListener('iron-overlay-opened', this._openedModal);
+
+        if (this.activate) {
+          this.$.text.innerHTML = "$0.20 / 20sec";
+          this.$.modalTrigger.style = 'cursor: pointer;';
+        } else {
+          this.$.text.innerHTML = "Finished";
+          this.$.modalTrigger.style = 'cursor: none;';
+        }
+      }
+
+      _showModal(e) {
+        this.$.modal.open();
+      }
+
+      _openedModal() {
+        this.counter = 20;
+        this.progress = 0;
+        window.setTimeout(function() {
+          console.log('works');
+          // this.counter = this.counter - (1/5);
+          // this.progress = this.progress + 0.025;
+          console.log('counter: ' + this.counter);
+          console.log('progress: ' + this.progress);
+        }, 200);
+      }
+    }
+
+    window.customElements.define(AdControl.is, AdControl);
+  </script>
+</dom-module>

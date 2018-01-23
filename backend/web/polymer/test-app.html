@@ -1,0 +1,36 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="ad-control">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `ad-control`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class AdControl extends Polymer.Element {
+      static get is() { return 'ad-control'; }
+      static get properties() {
+        return {
+          prop1: {
+            type: String,
+            value: 'ad-control'
+          }
+        };
+      }
+    }
+
+    window.customElements.define(AdControl.is, AdControl);
+  </script>
+</dom-module>
