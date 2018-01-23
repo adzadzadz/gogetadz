@@ -1,6 +1,7 @@
 <link rel="import" href="/polymer/vendor/bower/polymer/polymer-element.html">
 <link rel="import" href="/polymer/vendor/bower/paper-dialog/paper-dialog.html">
 <link rel="import" href="/polymer/vendor/bower/paper-progress/paper-progress.html">
+<link rel="import" href="/polymer/vendor/bower/paper-button/paper-button.html">
 
 <dom-module id="ad-control">
   <template>
@@ -16,7 +17,29 @@
       paper-dialog {
         z-index: 999999;
       }
+
+      paper-progress {
+        --paper-progress-transition-duration: 20s;
+        --paper-progress-transition-timing-function: linear;
+        --paper-progress-transition-transition-delay: 5s;
+      }
+      paper-button {
+        color: #fff;        
+        width: 100%;
+        --paper-button: {
+          background: #388e3c;
+        };
+        --paper-button-disabled: {
+          background-color: #d32f2f;
+        };
+      }
+      
+
+      #countdown {
+        font-size: 20px;
+      }
     </style>
+
     <div class="img-wrap">
       <div id="modalTrigger" class="modal-trigger" data-toggle="modal" data-target="[[dataTarget]]" on-tap="_showModal">
         <img src="[[imgUrl]]" alt="" width="100%">
@@ -28,11 +51,31 @@
 
     <paper-dialog id="modal" modal>
       <section id="content">
-        <paper-progress value="[[progress]]"></paper-progress>
-        <slot></slot>
+
+        <h3>Advertisement</h3>
+
+        <div style="width: 75%; float: left; padding-top: 15px;">
+          <paper-progress id="paperProgress" value="0" class="transiting"></paper-progress>
+        </div>
+
+        <div style="width: 25%; float: left;">
+          <form id="form" action="[[action]]" method="post">
+            <input type="hidden" name="ad_id" value="[[value]]">
+            <input id="formSuccess" type="hidden" name="success" value="0">
+            <input type="hidden" name="[[csrfParam]]" value="[[csrfValue]]">
+            <paper-button disabled id="submitButton" raised class="custom green" on-tap="_submitSuccess">submit</paper-button>  
+          </form>          
+        </div>
+
+        <div style="clear:both;"></div>
+
+        <div id="countdown"><span id="count">20</span> left...</div>
+
+         <img src="[[imgUrl]]" alt="" style="margin-top: 10px;">
+
       </section>
       <div class="buttons">
-        <paper-button dialog-confirm autofocus>Tap me to close</paper-button>
+        <paper-button toggles raised autofocus>Tap me to close</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -42,27 +85,49 @@
       static get is() { return 'ad-control'; }
       static get properties() {
         return {
+          status:Number,
+          action:String,
+          csrfParam: String,
+          csrfValue: String,
+          value: String,
           dataTarget: String,
           // cursor: Boolean,
           imgUrl: String,
           activate: Boolean,
-          counter: Number,
-          progress: Number,
+          counter: {
+            type: Number,
+            value: 20
+          },
+          progress: {
+            type: Number,
+            value: 0
+          },
         };
       }
 
       ready() {
         super.ready();
-
+        
         this.addEventListener('iron-overlay-opened', this._openedModal);
+        this.addEventListener('iron-overlay-closed', this._closedModal);
 
         if (this.activate) {
           this.$.text.innerHTML = "$0.20 / 20sec";
           this.$.modalTrigger.style = 'cursor: pointer;';
         } else {
-          this.$.text.innerHTML = "Finished";
-          this.$.modalTrigger.style = 'cursor: none;';
+          if (this.status == 10) {
+            this.$.text.innerHTML = "Finished";
+          } else if (this.status == 9) {
+            this.$.text.innerHTML = "Failed";
+          }
+          var modal = this.$.modal;
+          modal.parentNode.removeChild(modal);
         }
+      }
+
+      _submitSuccess() {
+        this.$.formSuccess.value = 1;
+        this.$.form.submit();
       }
 
       _showModal(e) {
@@ -70,15 +135,33 @@
       }
 
       _openedModal() {
-        this.counter = 20;
-        this.progress = 0;
-        window.setTimeout(function() {
-          console.log('works');
-          // this.counter = this.counter - (1/5);
-          // this.progress = this.progress + 0.025;
-          console.log('counter: ' + this.counter);
-          console.log('progress: ' + this.progress);
-        }, 200);
+        this._countdown();
+        this.$.paperProgress.value = 100;
+      }
+
+      _closedModal() {
+        window.clearInterval(this.countDownInterval);
+      }
+
+      _countdown() {
+        var i = 19;
+        this.countDownInterval = setInterval(timer, 1000);
+ 
+        var countDownInterval = this.countDownInterval;
+        var timerElem = this.$.count;
+        var submitButton = this.$.submitButton;
+        var form = this.$.form;
+        function timer() {
+          if (i == 10) {
+            submitButton.disabled = false
+          }
+          if (i < 1) {
+            form.submit();
+            clearInterval(countDownInterval);
+          }
+          timerElem.innerHTML = i.toString();
+          i--;
+        }
       }
     }
 

@@ -54,12 +54,12 @@ class AdvertisementController extends Controller
     {
         $model = new UserAdvertisement();
         $data = [];
-        // return var_dump(Yii::$app->request->post());
         if (Yii::$app->request->post()['ad_id']) {
             $data = [
                 'UserAdvertisement' => [
                     'user_id' => Yii::$app->user->id,
-                    'ad_id'   => Yii::$app->request->post()['ad_id']
+                    'ad_id'   => Yii::$app->request->post()['ad_id'],
+                    'success' => Yii::$app->request->post()['success'],
                 ]
             ];
         }

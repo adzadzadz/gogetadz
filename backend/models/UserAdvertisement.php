@@ -16,6 +16,7 @@ use dektrium\user\models\User;
  */
 class UserAdvertisement extends \yii\db\ActiveRecord
 {
+    public $success;
     /**
      * @inheritdoc
      */
@@ -31,7 +32,7 @@ class UserAdvertisement extends \yii\db\ActiveRecord
     {
         return [
             [['user_id', 'ad_id'], 'required'],
-            [['user_id', 'ad_id', 'status'], 'integer'],
+            [['user_id', 'ad_id', 'status', 'success'], 'integer'],
             [['ad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Advertisement::className(), 'targetAttribute' => ['ad_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -46,6 +47,7 @@ class UserAdvertisement extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'ad_id' => 'Ad ID',
             'status' => 'Status',
+            'success' => 'Success'
         ];
     }
 
@@ -72,7 +74,7 @@ class UserAdvertisement extends \yii\db\ActiveRecord
             $model = new UserAdvertisement;
             $model->ad_id = $this->ad_id;
             $model->user_id = $this->user_id;
-            $model->status = 10;
+            $model->status = $this->success ? 10 : 9;
 
             if ($model->save()) {
                 return $model;
