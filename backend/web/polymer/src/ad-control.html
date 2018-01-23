@@ -41,7 +41,7 @@
     </style>
 
     <div class="img-wrap">
-      <div id="modalTrigger" class="modal-trigger" data-toggle="modal" data-target="[[dataTarget]]" on-tap="_showModal">
+      <div id="modalTrigger" class="modal-trigger" data-toggle="modal" data-target="[[dataTarget]]" on-tap="_openModal">
         <img src="[[imgUrl]]" alt="" width="100%">
         <div id="text" class="text">
 
@@ -75,7 +75,7 @@
 
       </section>
       <div class="buttons">
-        <paper-button toggles raised autofocus>Tap me to close</paper-button>
+        <paper-button raised autofocus on-tap="_closeModal">Tap me to close</paper-button>
       </div>
     </paper-dialog>
   </template>
@@ -130,8 +130,14 @@
         this.$.form.submit();
       }
 
-      _showModal(e) {
+      _openModal(e) {
         this.$.modal.open();
+      }
+
+      _closeModal(e) {
+        this.$.modal.close();
+        this.$.paperProgress.value = 0;
+        this.$.count.innerHTML = 20;
       }
 
       _openedModal() {
