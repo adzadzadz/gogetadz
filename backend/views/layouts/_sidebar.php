@@ -55,18 +55,25 @@ $menuItems[] = [
     'label' => 'Account',
 ];
 
-// if (Yii::$app->) {
-//     # code...
-// }
+
 $menuItems[] = [
-    // 'url' => [ Url::to(['/user/settings/profile']) ],
     'icon' => 'cog',
     'label' => 'Admin Controls',
     'items' => [
         [
+            'url' => [ Url::to(['/user/admin']) ],
+            'icon' => 'cog',
+            'label' => 'User',
+        ],
+        [
             'url' => [ Url::to(['/advertisement']) ],
             'icon' => 'cog',
             'label' => 'Advertisements',
+        ],
+        [
+            'url' => [ Url::to(['/codes']) ],
+            'icon' => 'cog',
+            'label' => 'Codes',
         ]
     ]
 ];

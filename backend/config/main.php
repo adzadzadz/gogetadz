@@ -30,16 +30,14 @@ return [
                 'httpOnly' => true,
                 'path'     => '/',
             ],
-        ],  
-        // 'user' => [
-        //     'identityClass' => 'common\models\User',
-        //     'enableAutoLogin' => true,
-        //     'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
-        // ],
-        // 'session' => [
-        //     // this is the name of the session cookie used for login on the backend
-        //     'name' => 'advanced-backend',
-        // ],
+        ],
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@dektrium/user/views' => '@app/views'
+                ],
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -65,7 +63,15 @@ return [
             // 'enableUnconfirmedLogin' => true,
             'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['admin', 'pax']
+            'admins' => ['admin', 'pax'],
+            'controllerMap' => [
+                'admin' => 'app\controllers\UserController',
+                'registration' => 'app\controllers\RegistrationController'
+            ],
+            'modelMap' => [
+                'User' => 'app\models\User',
+                'RegistrationForm' => 'app\models\RegistrationForm',
+            ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
     ],
