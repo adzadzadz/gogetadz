@@ -91,10 +91,12 @@ $menuItems[] = [
 ];
 
 $menuItems[] = [
-    'url' => [Url::to(['/user/security/logout'])],
     'icon' => 'cog',
     'label' => 'Logout',
-];
+    'url' => ['/user/security/logout'],
+    'template' => '<a href="{url}" data-method="post">{icon}{label}</a>' ,
+    //'linkOptions' => ['data-method' => 'post']
+ ];
 
 echo dmstr\widgets\Menu::widget([
     'items' => \yii\helpers\ArrayHelper::merge($favouriteMenuItems, $menuItems),
