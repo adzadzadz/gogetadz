@@ -5,6 +5,7 @@
 
 <dom-module id="ad-control">
   <template>
+
     <style>
       :host {
         display: block;
@@ -74,8 +75,9 @@
         <div style="clear:both;"></div>
 
         <div id="countdown"><span id="count">20</span> left...</div>
-
-         <img src="[[imgUrl]]" alt="" style="margin-top: 10px;">
+        
+        <slot></slot>
+        
 
       </section>
       <div class="buttons">

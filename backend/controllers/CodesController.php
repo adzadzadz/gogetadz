@@ -29,11 +29,11 @@ class CodesController extends Controller
         ];
     }
 
-    public function actionTest()
-    {   
-        $code = \app\models\codes\Codes::find()->where(['created_by' => 2])->one();
-        return var_dump($code->code);
-    }
+    // public function actionTest()
+    // {   
+    //     $code = \app\models\codes\Codes::find()->where(['created_by' => 2])->one();
+    //     return var_dump($code->code);
+    // }
 
     /**
      * Lists all Codes models.

@@ -108,9 +108,11 @@ class User extends BaseUser
                 $network->position = $this->position;
                 $network->code = $this->code;
                 if ($network->save()) {
-                    $checkCode = Codes::findOne(['code' => $this->code]);
-                    $checkCode->status = 0;
-                    $checkCode->save();
+                    if ($this->username !== 'admin') {
+                        $checkCode = Codes::findOne(['code' => $this->code]);
+                        $checkCode->status = 0;
+                        $checkCode->save();
+                    }
                 } else {
                     $transaction->rollBack();
                     return false;

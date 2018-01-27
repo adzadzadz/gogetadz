@@ -53,7 +53,7 @@ class RegistrationForm extends Model
         return [
             [['sponsor', 'placement', 'position'], 'integer'],
             ['code', 'string', 'min' => 12, 'max' => 255],
-            ['code', 'exist', 'targetClass' => Codes::classname()],
+            // ['code', 'exist', 'targetClass' => Codes::classname()],
 
             // username rules
             'usernameTrim'     => ['username', 'trim'],
@@ -92,7 +92,7 @@ class RegistrationForm extends Model
             'username' => Yii::t('user', 'Username'),
             'password' => Yii::t('user', 'Password'),
 
-            'sponsor'      => \Yii::t('user', 'Sponsor'),
+            'sponsor'      => \Yii::t('user', 'Direct Sponsor'),
             'placement'      => \Yii::t('user', 'Placement'),
             'position'      => \Yii::t('user', 'Position'),
             'code'      => \Yii::t('user', 'Code'),
@@ -119,7 +119,7 @@ class RegistrationForm extends Model
         }
 
         $checkCode = Codes::findOne(['code' => $this->code]);
-        if ($checkCode->status != 10) {
+        if ($checkCode && $checkCode->status != 10 && $this->username !== 'admin') {
             Yii::$app->session->setFlash(
                 'danger',
                 Yii::t(

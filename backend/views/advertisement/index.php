@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description',
             'url:url',
             'image_url:url',
+            'schedule',
             //'status',
             //'created_at',
             //'updated_at',

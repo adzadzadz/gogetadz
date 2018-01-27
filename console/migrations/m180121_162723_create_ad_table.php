@@ -37,7 +37,7 @@ class m180121_162723_create_ad_table extends Migration
             $columns = 'ad_id', 
             $refTable = '{{%advertisement}}', 
             $refColumns = 'id', 
-            $delete = null, 
+            $delete = 'CASCADE', 
             $update = null );
 
         $this->addForeignKey( 
@@ -46,7 +46,7 @@ class m180121_162723_create_ad_table extends Migration
             $columns = 'user_id', 
             $refTable = '{{%user}}', 
             $refColumns = 'id',
-            $delete = null, 
+            $delete = 'CASCADE', 
             $update = null );
     }
 

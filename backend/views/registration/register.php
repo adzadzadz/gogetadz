@@ -42,8 +42,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                 <?= $form->field($model, 'placement') ?>
                 
-                <?= $form->field($model, 'position') ?>
-                
+                <?= $form->field($model, 'position')->dropDownList([0 => 'left', 1 => 'right'], []); ?>
+
                 <?= $form->field($model, 'code') ?>
                 
                 <h4>Personal Information</h4>

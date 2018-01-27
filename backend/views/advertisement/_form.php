@@ -23,6 +23,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'image_url')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'schedule')->dropDownList([
+        10 => 'Unassigned',
+        0 => 'Monday',
+        1 => 'Tuesday',
+        2 => 'Wednesday',
+        3 => 'Thursday',
+        4 => 'Friday',
+        5 => 'Saturday',
+        6 => 'Sunday'
+    ], []); ?>
+
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

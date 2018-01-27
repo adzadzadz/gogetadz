@@ -38,19 +38,10 @@ class RegistrationController extends BaseRegistrationController
 
         $this->performAjaxValidation($model);
 
-        // return var_dump(Yii::$app->request->post());
-        // $model->load(\Yii::$app->request->post());
-        // return var_dump($model->register());
-
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->redirect(['register']);
-            // return $this->render('register', [
-            //     'title'  => \Yii::t('user', 'Your account has been created'),
-            //     'model'  => $model,
-            //     'module' => $this->module,
-            // ]);
+            return $this->redirect(['/site']);
         }
 
         return $this->render('register', [

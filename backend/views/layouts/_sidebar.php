@@ -55,40 +55,45 @@ $menuItems[] = [
     'label' => 'Account',
 ];
 
-
-$menuItems[] = [
-    'icon' => 'cog',
-    'label' => 'Admin Controls',
-    'items' => [
-        [
-            'url' => [ Url::to(['/user/admin']) ],
-            'icon' => 'cog',
-            'label' => 'User',
-        ],
-        [
-            'url' => [ Url::to(['/advertisement']) ],
-            'icon' => 'cog',
-            'label' => 'Advertisements',
-        ],
-        [
-            'url' => [ Url::to(['/codes']) ],
-            'icon' => 'cog',
-            'label' => 'Codes',
+if (\Yii::$app->user->identity->isAdmin) {
+    
+    $menuItems[] = [
+        'icon' => 'cog',
+        'label' => 'Admin Controls',
+        'items' => [
+            [
+                'url' => [ Url::to(['/user/admin']) ],
+                'icon' => 'cog',
+                'label' => 'User',
+            ],
+            [
+                'url' => [ Url::to(['/advertisement']) ],
+                'icon' => 'cog',
+                'label' => 'Advertisements',
+            ],
+            [
+                'url' => [ Url::to(['/codes']) ],
+                'icon' => 'cog',
+                'label' => 'Codes',
+            ]
         ]
-    ]
-];
+    ];
 
-$menuItems[] = [
-    'url' => [ Url::to(["/site/click-ads"]) ],
-    'icon' => 'cog',
-    'label' => 'Click Ads',
-];
+} else {
 
-$menuItems[] = [
-    'url' => ['#'],
-    'icon' => 'cog',
-    'label' => 'Withdraw',
-];
+    $menuItems[] = [
+        'url' => [ Url::to(["/site/click-ads"]) ],
+        'icon' => 'cog',
+        'label' => 'Click Ads',
+    ];
+
+    $menuItems[] = [
+        'url' => ['#'],
+        'icon' => 'cog',
+        'label' => 'Withdraw',
+    ];
+
+}
 
 $menuItems[] = [
     'icon' => 'cog',
