@@ -119,16 +119,20 @@ class RegistrationForm extends Model
         }
 
         $checkCode = Codes::findOne(['code' => $this->code]);
-        if ($checkCode && $checkCode->status != 10 && $this->username !== 'admin') {
-            Yii::$app->session->setFlash(
-                'danger',
-                Yii::t(
-                    'user',
-                    'Your code is invalid. Contact the administrators.'
-                )
-            );
+        if ($this->username !== 'admin') {
+            if (!$checkCode || $checkCode->status != 10) {
+                Yii::$app->session->setFlash(
+                    'danger',
+                    Yii::t(
+                        'user',
+                        'Your code is invalid. Contact the administrators.'
+                    )
+                );
+                return false;
+            }    
         }
 
+        
         /** @var User $user */
         $user = Yii::createObject(User::className());
         $user->setScenario('register');

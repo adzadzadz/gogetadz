@@ -3,17 +3,8 @@
 namespace app\models;
 
 use Yii;
-use dektrium\user\models\User;
-/**
- * This is the model class for table "{{%user_advertisement}}".
- *
- * @property int $user_id
- * @property int $ad_id
- * @property int $status
- *
- * @property Advertisement $ad
- * @property User $user
- */
+use dektrium\user\models\User as dektUser;
+
 class UserAdvertisement extends \yii\db\ActiveRecord
 {
     public $success;
@@ -34,7 +25,7 @@ class UserAdvertisement extends \yii\db\ActiveRecord
             [['user_id', 'ad_id'], 'required'],
             [['user_id', 'ad_id', 'status', 'success'], 'integer'],
             [['ad_id'], 'exist', 'skipOnError' => true, 'targetClass' => Advertisement::className(), 'targetAttribute' => ['ad_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => dektUser::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -96,6 +87,6 @@ class UserAdvertisement extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'user_id']);
+        return $this->hasOne(dektUser::className(), ['id' => 'user_id']);
     }
 }

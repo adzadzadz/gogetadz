@@ -79,21 +79,21 @@ if (\Yii::$app->user->identity->isAdmin) {
         ]
     ];
 
-} else {
-
-    $menuItems[] = [
-        'url' => [ Url::to(["/site/click-ads"]) ],
-        'icon' => 'cog',
-        'label' => 'Click Ads',
-    ];
-
-    $menuItems[] = [
-        'url' => ['#'],
-        'icon' => 'cog',
-        'label' => 'Withdraw',
-    ];
-
 }
+
+$menuItems[] = [
+    'url' => [ Url::to(["/site/click-ads"]) ],
+    'icon' => 'cog',
+    'label' => 'Click Ads',
+];
+
+$menuItems[] = [
+    'url' => ['#'],
+    'icon' => 'cog',
+    'label' => 'Withdraw',
+];
+
+
 
 $menuItems[] = [
     'icon' => 'cog',

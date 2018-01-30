@@ -43,11 +43,16 @@
       #countdown {
         font-size: 20px;
       }
+      img.main {
+        max-height: 110px; 
+        width: 100%; 
+        overflow: hidden;
+      }
     </style>
 
     <div class="img-wrap">
       <div id="modalTrigger" class="modal-trigger" data-toggle="modal" data-target="[[dataTarget]]" on-tap="_openModal">
-        <img src="[[imgUrl]]" alt="" width="100%">
+        <img class="main" src="[[imgUrl]]">
         <div id="text" class="text">
 
         </div>
@@ -141,7 +146,14 @@
       }
 
       _closeModal(e) {
+        // Close the modal
         this.$.modal.close();
+          
+        // Label ad as failed
+        this.$.formSuccess.value = 0;
+        this.$.form.submit();
+
+        // Reset progress
         this.$.paperProgress.value = 0;
         this.$.count.innerHTML = 20;
       }

@@ -24,14 +24,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'image_url')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'schedule')->dropDownList([
-        10 => 'Unassigned',
-        0 => 'Monday',
-        1 => 'Tuesday',
-        2 => 'Wednesday',
-        3 => 'Thursday',
-        4 => 'Friday',
-        5 => 'Saturday',
-        6 => 'Sunday'
+        0 => 'Unassigned',
+        1 => 'Monday',
+        2 => 'Tuesday',
+        3 => 'Wednesday',
+        4 => 'Thursday',
+        5 => 'Friday',
+        6 => 'Saturday',
+        7 => 'Sunday'
     ], []); ?>
 
     <div class="form-group">

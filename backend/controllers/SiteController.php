@@ -69,6 +69,7 @@ class SiteController extends Controller
         $ads = \app\models\Advertisement::getToday();
         $userAds = \app\models\UserAdvertisement::getAllDone();
 
+        // return var_dump($ads);
         return $this->render('clickads', [
             'ads' => $ads,
             'userAds' => $userAds

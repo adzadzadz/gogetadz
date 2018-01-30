@@ -56,7 +56,7 @@ class Advertisement extends \yii\db\ActiveRecord
             [['type', 'name', 'description', 'image_url', 'url'], 'string', 'max' => 255],
             ['type', 'default', 'value' => 'primary'],
             ['status', 'default', 'value' => 10],
-            ['schedule', 'default', 'value' => 10]
+            ['schedule', 'default', 'value' => 0]
         ];
     }
 
@@ -65,7 +65,7 @@ class Advertisement extends \yii\db\ActiveRecord
         $day = date('N');
         $subQuery = \app\models\UserAdvertisement::find()->where(['user_id' => Yii::$app->user->id])->select('ad_id');
         $query = \app\models\Advertisement::find()
-            ->where(['schedule' => $day, 'status' => 10])
+            ->where(['schedule' => $day])
             ->andWhere([
                 'not in', 'id', $subQuery->where(['ad_id' => 'advertisement.id'])
             ])
