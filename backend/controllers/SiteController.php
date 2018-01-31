@@ -71,14 +71,17 @@ class SiteController extends Controller
 
     public function actionClickAds()
     {
-
+        $UserAdvertisement = new \app\models\UserAdvertisement;
         $ads = \app\models\Advertisement::getToday();
         $userAds = \app\models\UserAdvertisement::getAllDone();
+        $totals = $UserAdvertisement->getTotals();
 
         // return var_dump($ads);
         return $this->render('clickads', [
             'ads' => $ads,
-            'userAds' => $userAds
+            'userAds' => $userAds,
+            'totalIncome' => $totals['income'],
+            'clickCount'  => $totals['count']
         ]);
     }
 
