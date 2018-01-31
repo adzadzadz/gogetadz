@@ -68,8 +68,8 @@ class Advertisement extends \yii\db\ActiveRecord
             ->where(['schedule' => $day])
             ->andWhere([
                 'not in', 'id', $subQuery->where(['ad_id' => 'advertisement.id'])
-            ])
-            ->limit(15);
+            ]);
+            // ->limit(15);
         return $query->all();
     }
 
