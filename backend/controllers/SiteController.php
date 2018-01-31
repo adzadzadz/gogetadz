@@ -60,7 +60,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $userAds = new \app\models\UserAdvertisement;
+        $totals = $userAds->getTotals();
+
+        return $this->render('index', [
+            'totalIncome' => $totals['income'],
+            'clickCount'  => $totals['count']
+        ]);
     }
 
     public function actionClickAds()

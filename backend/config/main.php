@@ -56,6 +56,11 @@ return [
             'rules' => [
             ],
         ],
+        'appConfig' => [
+            'class' => 'app\models\Gogetadz',
+            'adIncome' => 0.2,
+            'currency' => 'USD',
+        ]
     ],
     'modules' => [
         'user' => [

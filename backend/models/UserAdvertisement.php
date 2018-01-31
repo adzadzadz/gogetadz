@@ -42,6 +42,15 @@ class UserAdvertisement extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getTotals()
+    {
+        $count = count(\app\models\UserAdvertisement::findAll(['user_id' => Yii::$app->user->id, 'status' => 10]));
+        return [
+            'income' => Yii::$app->appConfig->adIncome * $count,
+            'count'  => $count
+        ];
+    }
+
     public function getAllDone()
     {
         $done = UserAdvertisement::findAll(['user_id' => Yii::$app->user->id]);
