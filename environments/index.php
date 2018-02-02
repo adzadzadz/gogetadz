@@ -46,6 +46,23 @@ return [
             'frontend/config/main-local.php',
         ],
     ],
+    'Dev-Papix' => [
+        'path' => 'dev-papix',
+        'setWritable' => [
+            'backend/runtime',
+            'backend/web/assets',
+            'frontend/runtime',
+            'frontend/web/assets',
+        ],
+        'setExecutable' => [
+            'yii',
+            'yii_test',
+        ],
+        'setCookieValidationKey' => [
+            'backend/config/main-local.php',
+            'frontend/config/main-local.php',
+        ],
+    ],
     'Acceptance' => [
         'path' => 'acceptance',
         'setWritable' => [

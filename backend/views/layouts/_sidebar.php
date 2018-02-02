@@ -17,8 +17,9 @@ use yii\helpers\Url;
     </div>
     <div class="pull-left info">
         <p><?= Yii::$app->user->identity->username ?></p>
+        <p>ID: <strong><?= Yii::$app->user->id ?></strong></p>
 
-        <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        <!-- <a href="#"><i class="fa fa-circle text-success"></i> Online</a> -->
     </div>
 </div>
 
