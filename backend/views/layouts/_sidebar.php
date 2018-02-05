@@ -83,6 +83,12 @@ if (\Yii::$app->user->identity->isAdmin) {
 }
 
 $menuItems[] = [
+    'url' => [ Url::to(["/network/binary-tree"]) ],
+    'icon' => 'cog',
+    'label' => 'Binary Tree',
+];
+
+$menuItems[] = [
     'url' => [ Url::to(["/site/click-ads"]) ],
     'icon' => 'cog',
     'label' => 'Click Ads',

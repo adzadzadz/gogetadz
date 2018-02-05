@@ -68,7 +68,7 @@ return [
             'enableUnconfirmedLogin' => true,
             'confirmWithin' => 21600,
             'cost' => 12,
-            'admins' => ['admin', 'pax'],
+            'admins' => ['admin', 'pax', 'adzayko'],
             'controllerMap' => [
                 'admin' => 'app\controllers\UserController',
                 'registration' => 'app\controllers\RegistrationController'

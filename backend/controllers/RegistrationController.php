@@ -16,6 +16,21 @@ use yii\web\NotFoundHttpException;
 
 class RegistrationController extends BaseRegistrationController
 {
+
+    /** @inheritdoc */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    ['allow' => true, 'actions' => ['connect'], 'roles' => ['?']],
+                    ['allow' => true, 'actions' => ['confirm', 'resend', 'register'], 'roles' => ['?', '@']],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Displays the registration page.
      * After successful registration if enableConfirmation is enabled shows info message otherwise
