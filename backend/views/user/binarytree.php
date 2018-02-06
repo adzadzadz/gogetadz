@@ -67,7 +67,7 @@ $this->title = 'Binary Tree';
       <div>
         <div class="username"><?= $network[$id][0][0][0]['username'] ?></div>
         <div class="id">ID: <?= $network[$id][0][0][0]['id'] ?></div>
-        <div class="name"><?= $network[$id][0][0][0]['name'] ?></div>
+        <div class="name"><?= $network[$id][0][0][0]['name'] ? $network[$id][0][0][0]['name'] : 'NO NAME' ?></div>
       </div>
     </div>    
   </div>
