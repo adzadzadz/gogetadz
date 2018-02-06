@@ -40,12 +40,11 @@ $this->title = 'Binary Tree';
   .master {
     background: #80deea;
   }
-  a .filler-icon {
-    font-size: 3em;
+  a.binary-link {
     color: #000;
   }
-  a .filler-icon:hover {
-    font-size: 5em;
+  a.binary-link:hover {
+    font-size: 1.2em;
   }
 </style>
 
@@ -55,7 +54,7 @@ $this->title = 'Binary Tree';
       <div class="pull-left">
         <?php echo \cebe\gravatar\Gravatar::widget(
             [
-                'email' => 'adzbite@gmail.com',
+                'email' => $network[$id][0][0][0]['email'],
                 'defaultImage' => 'robohash',
                 'options' => [
                     'alt' => '',
@@ -69,7 +68,7 @@ $this->title = 'Binary Tree';
         <div class="id">ID: <?= $network[$id][0][0][0]['id'] ?></div>
         <div class="name"><?= $network[$id][0][0][0]['name'] ? $network[$id][0][0][0]['name'] : 'NO NAME' ?></div>
       </div>
-    </div>    
+    </div>
   </div>
 </div>
 
@@ -102,41 +101,43 @@ $this->title = 'Binary Tree';
         $makegroup = $makegroup + 1;
 ?>
 
-        <?php if($network[$id][$level + 1][$group][$position]['id'] == null): ?>
-          <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
-            <a href="<?= Url::to(['/user/register', 'id' => $network[$id][$level + 1][$group][$position]['placement'], 'position' => $position]) ?>">
-              <div class="level gray ?>">
-                <div class="filler-icon">
-                  <i class="fa fa-user"></i>
-                </div>
-              </div>
-            </a>
+<?php if($network[$id][$level + 1][$group][$position]['id'] == null): ?>
+  <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
+    <a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $network[$id][$level + 1][$group][$position]['placement'], 'position' => $position]) ?>">
+      <div class="level gray ?>">
+        <div class="filler-icon" style="font-size: 3em;">
+          <i class="fa fa-user"></i>
+        </div>
+      </div>
+    </a>
+  </div>
+<?php else: ?>
+  <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
+    <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network[$id][$level + 1][$group][$position]['id']]) ?>">
+      <div class="level level<?= $level ?>">
+        <div style="width: 200px; margin: 0 auto;">
+          <div class="pull-left">
+            <?php echo \cebe\gravatar\Gravatar::widget(
+                [
+                    'email' => $network[$id][$level + 1][$group][$position]['email'],
+                    'defaultImage' => 'robohash',
+                    'options' => [
+                        'alt' => '',
+                    ],
+                    'size' => 60,
+                ]
+            ); ?>
           </div>
-        <?php else: ?>
-          <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
-            <div class="level level<?= $level ?>">
-              <div style="width: 200px; margin: 0 auto;">
-                <div class="pull-left">
-                  <?php echo \cebe\gravatar\Gravatar::widget(
-                      [
-                          'email' => '',
-                          'defaultImage' => 'robohash',
-                          'options' => [
-                              'alt' => '',
-                          ],
-                          'size' => 60,
-                      ]
-                  ); ?>
-                </div>
-                <div>
-                  <div class="username"><?= $network[$id][$level + 1][$group][$position]['username'] ?></div>
-                  <div class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
-                  <div class="name"><?= $network[$id][$level + 1][$group][$position]['name'] ? $network[$id][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
-                </div>
-              </div>
-            </div>
+          <div>
+            <div class="username"><?= $network[$id][$level + 1][$group][$position]['username'] ?></div>
+            <div class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
+            <div class="name"><?= $network[$id][$level + 1][$group][$position]['name'] ? $network[$id][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
           </div>
-        <?php endif ?>
+        </div>
+      </div>
+    </a>
+  </div>
+<?php endif ?>
 
 <?php
       }

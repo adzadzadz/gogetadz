@@ -42,16 +42,11 @@ class UserNetwork extends \yii\db\ActiveRecord
         $user = User::find()
             ->joinWith('network')
             ->where(['id' => $id])
-            ->select(
-                User::tableName() . ".id,",
-                User::tableName() . ".username,",
-                UserNetwork::tableName() . ".placement,",
-                UserNetwork::tableName() . ".position,"
-            )
             ->one();
-
-        $network[$user->id]['0']['0']['0'] = [ 
+        
+        $network[$user->id][0][0][0] = [ 
             'id'       => $user->id,
+            'email'    => $user->email,
             'name'     => $user->profile->name,
             'username' => $user->username,
         ];
@@ -109,6 +104,7 @@ class UserNetwork extends \yii\db\ActiveRecord
                     foreach ($downline['left'] as $data) {
                       $network[$user->id][$level + 1][$makegroup]['0'] = [
                         'id'        => $data->id,
+                        'email'     => $data->email,
                         'username'  => $data->username,
                         'name'      => $data->profile->name,
                         'placement' => $data->network->placement,
@@ -117,6 +113,7 @@ class UserNetwork extends \yii\db\ActiveRecord
                     foreach ($downline['right'] as $data) {
                       $network[$user->id][$level + 1][$makegroup]['1'] = [
                         'id'        => $data->id,
+                        'email'     => $data->email,
                         'username'  => $data->username,
                         'name'      => $data->profile->name,
                         'placement' => $data->network->placement,
