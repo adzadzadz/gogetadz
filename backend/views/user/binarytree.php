@@ -104,7 +104,7 @@ $this->title = 'Binary Tree';
 
         <?php if($network[$id][$level + 1][$group][$position]['id'] == null): ?>
           <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
-            <a href="<?= Url::to(['/user/register']) ?>">
+            <a href="<?= Url::to(['/user/register', 'id' => $network[$id][$level + 1][$group][$position]['placement'], 'position' => $position]) ?>">
               <div class="level gray ?>">
                 <div class="filler-icon">
                   <i class="fa fa-user"></i>

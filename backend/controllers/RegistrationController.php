@@ -39,7 +39,7 @@ class RegistrationController extends BaseRegistrationController
      * @return string
      * @throws \yii\web\HttpException
      */
-    public function actionRegister()
+    public function actionRegister($id = null, $position = null)
     {
         if (!$this->module->enableRegistration) {
             throw new NotFoundHttpException();
@@ -48,6 +48,12 @@ class RegistrationController extends BaseRegistrationController
         /** @var RegistrationForm $model */
         $model = \Yii::createObject(RegistrationForm::className());
         $event = $this->getFormEvent($model);
+
+        if ($id && $position) {
+            $model->placement = $id;
+            $model->sponsor = $id;
+            $model->position = $position;
+        }
 
         $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
 
