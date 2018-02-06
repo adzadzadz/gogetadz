@@ -118,6 +118,7 @@ class RegistrationForm extends Model
             return false;
         }
 
+        // Verifying code
         $checkCode = Codes::findOne(['code' => $this->code]);
         if ($this->username !== 'admin') {
             if (!$checkCode || $checkCode->status != 10) {
@@ -132,6 +133,18 @@ class RegistrationForm extends Model
             }    
         }
 
+        // Verifying Position slot
+        $checkSlot = UserNetwork::findOne(['placement' => $this->placement, 'position' => $this->position]);
+        if ($checkSlot !== null) {
+            Yii::$app->session->setFlash(
+                'danger',
+                Yii::t(
+                    'user',
+                    'The position you selected is already taken. Please double check your tree.'
+                )
+            );
+            return false;
+        }
         
         /** @var User $user */
         $user = Yii::createObject(User::className());

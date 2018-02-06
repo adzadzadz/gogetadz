@@ -49,7 +49,7 @@ class RegistrationController extends BaseRegistrationController
         $model = \Yii::createObject(RegistrationForm::className());
         $event = $this->getFormEvent($model);
 
-        if ($id && $position) {
+        if ($id && $position !== null) {
             $model->placement = $id;
             $model->sponsor = $id;
             $model->position = $position;
@@ -62,7 +62,10 @@ class RegistrationController extends BaseRegistrationController
         if ($model->load(\Yii::$app->request->post()) && $model->register()) {
             $this->trigger(self::EVENT_AFTER_REGISTER, $event);
 
-            return $this->redirect(['/site']);
+            if (Yii::$app->user->isGuest) {
+                return $this->redirect(['/site']);
+            }
+            return $this->redirect(['/network/binary-tree']);
         }
 
         return $this->render('register', [
