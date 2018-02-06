@@ -7,9 +7,9 @@ use yii\helpers\Url;
     <div class="pull-left image">
         <?php echo \cebe\gravatar\Gravatar::widget(
             [
-                'email' => '<?= Yii::$app->user->identity->email ?>',
+                'email' => Yii::$app->user->identity->email,
                 'options' => [
-                    'alt' => '<?= Yii::$app->user->identity->username ?>',
+                    'alt' => Yii::$app->user->identity->username,
                 ],
                 'size' => 64,
             ]

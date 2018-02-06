@@ -43,9 +43,11 @@ class NetworkController extends Controller
     public function actionBinaryTree($id = null)
     {
         // return var_dump(\app\models\User::find()->where(['user_id' => 1])->joinWith('profile', 'network')->one());
-        $network = UserNetwork::getBinary($id ? $id : Yii::$app->user->id);
+        $id = $id ? $id : Yii::$app->user->id;
+        $network = UserNetwork::getBinary($id);
         return $this->render('@backend/views/user/binarytree', [
-            'users' => $network
+            'network' => $network,
+            'id'    => $id
         ]);
     }
 }

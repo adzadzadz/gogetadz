@@ -4,102 +4,146 @@ use yii\helpers\Url;
 
 $this->title = 'Binary Tree';
 
-// var_dump($users[0][0]->profile->name); exit;
-// $upline = \app\models\UserNetwork::findOne(['id' => $users[0][0]->network->placement]);
-$upline = null;
-if (\Yii::$app->user->identity->isAdmin) {
-  $upline = \app\models\User::find()->where(['id' => $users[0][0]->network->placement])->joinWith('profile')->joinWith('network')->one();
-}
-
-$u1 = isset($users[1]) ? count($users[1]) : 0;
-$u2 = isset($users[2]) ? count($users[2]) : 0;
-$u3 = isset($users[3]) ? count($users[3]) : 0;
-$treeWidth = ($u1 + $u2 + $u3) * 100;
-
 ?>
 
-<!--
-We will create a family tree using just CSS(3)
-The markup will be simple nested lists
--->
+<style>
+  div {
+    margin: 0;
+    padding: 0;
+  }
+  .binary-user {
+    /*display: inline-block;*/
+    padding: 5px;
+    /*margin-bottom: 10px;*/
+    text-align: center;
+    min-height: 100px;
+  }
+  .id {
+    font-weight: bold;
+  }
+  .level {
+    padding: 15px;
+    height: 100%;
+  }
+  .level0 {
+    background: #e6ee9c;
+  }
+  .level1 {
+    background: #80d8ff;
+  }
+  .level2 {
+    background: #b9f6ca;
+  }
+  .gray {
+    background: #e0e0e0;
+  }
+  .master {
+    background: #80deea;
+  }
+  a .filler-icon {
+    font-size: 3em;
+    color: #000;
+  }
+  a .filler-icon:hover {
+    font-size: 5em;
+  }
+</style>
 
-<h3>Genealogy of (<?= $users[0][0]->username ?>) <?= $users[0][0]->profile->name ?></h3>
-
-<div class="col-md-2">
-  <div class="col-md-12">
-    <h2>Actions</h2>
-
-    <?php if (\Yii::$app->user->identity->isAdmin) { ?>
-    
-      <a href="<?= Url::toRoute(['/user/register', 'upline_id' => $users[0][0]->id]) ?>" class="btn btn-sm btn-block btn-primary">Create Downline</a>
-    
-    <?php } ?>
-
-    <?php if (isset($upline)): ?>
-      <div class="binary-tree">
-        <ul>
-          <li>
-            <a href="<?= Url::toRoute(['/network/binary-tree', 'id' => $upline->id]) ?>">
-              <div><strong>Direct Upline</strong></div>
-              <div><?= $upline->profile->name ?></div>
-              <div><?= $upline->username ?></div>
-            </a>
-          </li>
-        </ul>
+<div class="binary-user" style="width:100%;">
+  <div class="level master">
+    <div style="width: 200px; margin: 0 auto;">
+      <div class="pull-left">
+        <?php echo \cebe\gravatar\Gravatar::widget(
+            [
+                'email' => 'adzbite@gmail.com',
+                'defaultImage' => 'robohash',
+                'options' => [
+                    'alt' => '',
+                ],
+                'size' => 60,
+            ]
+        ); ?>
       </div>
-    <?php endif ?>
-        
+      <div>
+        <div class="username"><?= $network[$id][0][0][0]['username'] ?></div>
+        <div class="id">ID: <?= $network[$id][0][0][0]['id'] ?></div>
+        <div class="name"><?= $network[$id][0][0][0]['name'] ?></div>
+      </div>
+    </div>    
   </div>
 </div>
-<div class="col-md-10 binary-tree-wrap">
-  <div class="binary-tree" style="width: <?= $treeWidth ?>px">
-    <ul>
-      <li>
-        <a href="">
-          <div><?= $users[0][0]->profile->name ?></div>
-          <div><?= $users[0][0]->username ?></div>
-        </a>
-        <?php if (isset($users[1])): ?>
-          <ul>
-            <?php foreach ($users[1] as $user1): ?>
-              <li>
-                <a href="<?= Url::toRoute(['/network/binary-tree', 'id' => $user1->id]) ?>">
-                  <div><?= $user1->profile->name ?></div>
-                  <div><?= $user1->username ?></div>
-                </a>
-                <?php if (isset($users[2])): ?>
-                  <ul>
-                    <?php foreach ($users[2] as $user2): ?>
-                      <?php if ($user2->network->placement == $user1->id): ?>
-                        <li>
-                          <a href="<?= Url::toRoute(['/network/binary-tree', 'id' => $user2->id]) ?>">
-                            <div><?= $user2->profile->name ?></div>
-                            <div><?= $user2->username ?></div>
-                          </a>
-                          <?php if (isset($users[3])): ?>
-                            <ul>
-                              <?php foreach ($users[3] as $user3): ?>
-                                <?php if ($user3->network->placement == $user2->id): ?>
-                                  <li>
-                                      <a href="<?= Url::toRoute(['/network/binary-tree', 'id' => $user3->id]) ?>">
-                                        <div><?= $user3->profile->name ?></div>
-                                        <div><?= $user3->username ?></div>
-                                      </a>
-                                  </li>
-                                <?php endif ?>
-                              <?php endforeach ?>
-                            </ul>
-                          <?php endif ?>
-                        </li>
-                      <?php endif ?>
-                    <?php endforeach ?>
-                  </ul>
-                <?php endif ?>
-              </li>
-            <?php endforeach ?>
-          </ul>
+
+<?php
+
+  for ($level=0; $level < 3 ; $level++) {
+
+    if($level == 0) {
+      $counter1 = 1;
+    }
+    else if($level == 1) {
+      $counter1 = 2;
+    }
+    else if($level == 3) {
+      $counter1 = 8;
+    }
+    else {
+      $counter1 = $level * $level;
+    }
+
+    $makegroup = -1;
+
+    echo '<div class="clearfix">';
+
+    for ($group=0; $group < $counter1; $group++) { 
+      $prevgroup = $group;
+
+      for ($position=0; $position < 2; $position++) {
+
+        $makegroup = $makegroup + 1;
+?>
+
+        <?php if($network[$id][$level + 1][$group][$position]['id'] == null): ?>
+          <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
+            <a href="<?= Url::to(['/user/register']) ?>">
+              <div class="level gray ?>">
+                <div class="filler-icon">
+                  <i class="fa fa-user"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+        <?php else: ?>
+          <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
+            <div class="level level<?= $level ?>">
+              <div style="width: 200px; margin: 0 auto;">
+                <div class="pull-left">
+                  <?php echo \cebe\gravatar\Gravatar::widget(
+                      [
+                          'email' => '',
+                          'defaultImage' => 'robohash',
+                          'options' => [
+                              'alt' => '',
+                          ],
+                          'size' => 60,
+                      ]
+                  ); ?>
+                </div>
+                <div>
+                  <div class="username"><?= $network[$id][$level + 1][$group][$position]['username'] ?></div>
+                  <div class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
+                  <div class="name"><?= $network[$id][$level + 1][$group][$position]['name'] ? $network[$id][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
+                </div>
+              </div>
+            </div>
+          </div>
         <?php endif ?>
-      </li>
-    </ul>
-  </div>
-</div>
+
+<?php
+      }
+
+    }
+
+    echo '</div>';
+
+  }
+?>

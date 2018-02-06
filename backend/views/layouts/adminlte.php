@@ -66,7 +66,7 @@ use yii\helpers\Html;
 
         <!-- Main content -->
 
-        <section class="content" style="min-height: 100vh;">
+        <section class="content" style="min-height: 100vh; white-space: nowrap;">
             <?php // Alert::widget() ?>
             <?= $content ?>
         </section>

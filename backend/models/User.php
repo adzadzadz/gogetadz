@@ -146,4 +146,9 @@ class User extends BaseUser
         return $this->hasOne(UserNetwork::classname(), ['user_id' => 'id']);
     }
 
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::classname(), ['user_id' => 'id']);
+    }
+
 }

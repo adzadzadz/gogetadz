@@ -76,6 +76,7 @@ return [
             'modelMap' => [
                 'User' => 'app\models\User',
                 'RegistrationForm' => 'app\models\RegistrationForm',
+                'Profile' => 'app\models\Profile'
             ],
         ],
         'rbac' => 'dektrium\rbac\RbacWebModule',
