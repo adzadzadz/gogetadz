@@ -50,8 +50,11 @@ class WithdrawalController extends Controller
     public function actionUserIndex()
     {
         $requests = UserWithdrawal::findAll(['user_id' => Yii::$app->user->id]);
+        $earned = \app\models\UserEarnings::calcEarned();
+        
         return $this->render('user-index', [
-            'requests' => $requests
+            'requests' => $requests,
+            'totalIncome'   => $earned
         ]);
     }
 

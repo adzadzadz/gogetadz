@@ -62,9 +62,10 @@ class SiteController extends Controller
     {
         $userAds = new \app\models\UserAdvertisement;
         $totals = $userAds->getTotals();
+        $earned = \app\models\UserEarnings::calcEarned();
 
         return $this->render('index', [
-            'totalIncome' => $totals['income'],
+            'totalIncome' => $earned,
             'clickCount'  => $totals['count']
         ]);
     }

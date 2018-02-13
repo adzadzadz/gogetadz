@@ -60,7 +60,11 @@ class UserEarnings extends \yii\db\ActiveRecord
     {
         $userAd = new UserAdvertisement;
         $totals = $userAd->getTotals();
-        return $totals['income'];
+
+        $withdrawal = UserWithdrawal::findOne(['user_id' => Yii::$app->user->id]);
+        $withdrawalValue = $withdrawal !== null ? $withdrawal->value : 0;
+
+        return $totals['income'] - $withdrawalValue;
     }
 
     /**

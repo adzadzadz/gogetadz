@@ -100,7 +100,7 @@ $menuItems[] = [
 ];
 
 $menuItems[] = [
-    'url' => [ Url::to(["/withdrawal"]) ],
+    'url' => [ Url::to(["/withdrawal/user-index"]) ],
     'icon' => 'cog',
     'label' => 'Withdraw',
 ];
