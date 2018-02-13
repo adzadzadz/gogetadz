@@ -3,21 +3,20 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-use app\models\Codes;
-use app\models\CodesSearch;
+use app\models\UserWithdrawal;
+use app\models\UserWithdrawalSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 use dektrium\user\filters\AccessRule;
-
+use app\models\UserEarnings;
 
 /**
- * CodesController implements the CRUD actions for Codes model.
+ * WithdrawalController implements the CRUD actions for UserWithdrawal model.
  */
-class CodesController extends Controller
+class WithdrawalController extends Controller
 {
-
     public function behaviors()
     {
         return [
@@ -27,35 +26,68 @@ class CodesController extends Controller
                     'class' => AccessRule::className(),
                 ],
                 'rules' => [
-                      [
-                        'actions' => ['index', 'view', 'generate', 'create', 'delete', 'update'],
+                    [
+                        'actions' => ['index', 'view', 'create', 'delete', 'update'],
                         'allow' => true,
                         'roles' => ['admin']
+                    ],
+                    [
+                        'actions' => ['user-index', 'request'],
+                        'allow' => true,
+                        'roles' => ['@'],
                     ],
                 ],
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'logout' => ['post'],
                 ],
             ],
         ];
     }
 
-    // public function actionTest()
-    // {   
-    //     $code = \app\models\codes\Codes::find()->where(['created_by' => 2])->one();
-    //     return var_dump($code->code);
-    // }
+    public function actionUserIndex()
+    {
+        $requests = UserWithdrawal::findAll(['user_id' => Yii::$app->user->id]);
+        return $this->render('user-index', [
+            'requests' => $requests
+        ]);
+    }
 
     /**
-     * Lists all Codes models.
+     * Ads Earning Withdrawal flow
+     *  - User clicks ads (earn per click)
+     *  - User hits withdrawal Request
+     *    # Add all ads earnings to the user_earnings table
+     *    # Save currently added earning to history
+     *    # Create withdrawal request
+     * 
+     * @return yii\web\View
+     */
+    public function actionRequest()
+    {
+        // Set earnings
+        if ($earnings = UserEarnings::addEarnings($type = 'ad_clicks', $amount = UserEarnings::calcEarned(), $user_id = Yii::$app->user->id)) {
+            // Request withdrawal
+            $withdrawal = new UserWithdrawal;
+            $withdrawal->type = 'full';
+            $withdrawal->user_id = $earnings->user_id;
+            $withdrawal->value = $earnings->value;
+            $withdrawal->status = 6;
+            $withdrawal->save();
+        }
+
+        return $this->redirect('user-index');
+    }
+
+    /**
+     * Lists all UserWithdrawal models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CodesSearch();
+        $searchModel = new UserWithdrawalSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -65,7 +97,7 @@ class CodesController extends Controller
     }
 
     /**
-     * Displays a single Codes model.
+     * Displays a single UserWithdrawal model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -77,22 +109,14 @@ class CodesController extends Controller
         ]);
     }
 
-    public function actionGenerate()
-    {
-        if (Yii::$app->request->post('count') !== null && Codes::generateCodes(Yii::$app->request->post('count'))) {
-            return $this->redirect(['index']);
-        }
-        return $this->redirect(['index']);
-    }
-
     /**
-     * Creates a new Codes model.
+     * Creates a new UserWithdrawal model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Codes();
+        $model = new UserWithdrawal();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -104,7 +128,7 @@ class CodesController extends Controller
     }
 
     /**
-     * Updates an existing Codes model.
+     * Updates an existing UserWithdrawal model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -124,7 +148,7 @@ class CodesController extends Controller
     }
 
     /**
-     * Deletes an existing Codes model.
+     * Deletes an existing UserWithdrawal model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -138,15 +162,15 @@ class CodesController extends Controller
     }
 
     /**
-     * Finds the Codes model based on its primary key value.
+     * Finds the UserWithdrawal model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Codes the loaded model
+     * @return UserWithdrawal the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Codes::findOne($id)) !== null) {
+        if (($model = UserWithdrawal::findOne($id)) !== null) {
             return $model;
         }
 

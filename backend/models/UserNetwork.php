@@ -41,7 +41,7 @@ class UserNetwork extends \yii\db\ActiveRecord
     {
         $user = User::find()
             ->joinWith('network')
-            ->where(['id' => $id])
+            ->where([User::tableName() . '.id' => $id])
             ->one();
         
         $network[$user->id][0][0][0] = [ 

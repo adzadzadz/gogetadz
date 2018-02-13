@@ -76,6 +76,11 @@ if (\Yii::$app->user->identity->isAdmin) {
                 'url' => [ Url::to(['/codes']) ],
                 'icon' => 'cog',
                 'label' => 'Codes',
+            ],
+            [
+                'url' => [ Url::to(["/withdrawal"]) ],
+                'icon' => 'cog',
+                'label' => 'Withdrawal Requests',
             ]
         ]
     ];
@@ -95,7 +100,7 @@ $menuItems[] = [
 ];
 
 $menuItems[] = [
-    'url' => ['#'],
+    'url' => [ Url::to(["/withdrawal"]) ],
     'icon' => 'cog',
     'label' => 'Withdraw',
 ];

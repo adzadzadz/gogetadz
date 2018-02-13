@@ -115,8 +115,8 @@ $this->title = 'Binary Tree';
   <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
     <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network[$id][$level + 1][$group][$position]['id']]) ?>">
       <div class="level level<?= $level ?>">
-        <div style="width: 200px; margin: 0 auto;">
-          <div class="pull-left">
+        <div style="<?= $level != 2 ? 'width: 200px; margin: 0 auto;' : '' ?>">
+          <div class="<?= $level != 2 ? 'pull-left' : '' ?>">
             <?php echo \cebe\gravatar\Gravatar::widget(
                 [
                     'email' => $network[$id][$level + 1][$group][$position]['email'],

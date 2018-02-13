@@ -42,6 +42,10 @@ class UserAdvertisement extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Calculates the total income for the clicked ads
+     * @return array shows both the total ads clicked and its earnings
+     */
     public function getTotals()
     {
         $count = count(\app\models\UserAdvertisement::findAll(['user_id' => Yii::$app->user->id, 'status' => 10]));
@@ -51,7 +55,7 @@ class UserAdvertisement extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getAllDone()
+    public static function getAllDone()
     {
         $done = UserAdvertisement::findAll(['user_id' => Yii::$app->user->id]);
         $data = [];

@@ -12,8 +12,12 @@ class m180206_155904_create_user_code_table extends Migration
      */
     public function up()
     {
-        $this->createTable('user_code', [
+        $this->createTable('{{%user_code}}', [
             'id' => $this->primaryKey(),
+            'user_id' => $this->integer(),
+            'code_id' => $this->integer(),
+            'status' => $this->smallInteger(),
+            'created_at' => $this->integer(),
         ]);
     }
 
@@ -22,6 +26,6 @@ class m180206_155904_create_user_code_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('user_code');
+        $this->dropTable('{{%user_code}}');
     }
 }

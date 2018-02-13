@@ -22,8 +22,9 @@ $this->title = 'Home';
     <div class="info-box">
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Click Income</span>
+        <span class="info-box-text">Click Earnings</span>
         <span class="info-box-number"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $totalIncome ?></span>
+        <a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>
   </div>

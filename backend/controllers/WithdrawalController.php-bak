@@ -1,0 +1,78 @@
+<?php
+
+namespace backend\controllers;
+
+use Yii;
+use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use dektrium\user\filters\AccessRule;
+use app\models\UserEarnings;
+use app\models\UserWithdrawal;
+
+class WithdrawalController extends \yii\web\Controller
+{
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'ruleConfig' => [
+                    'class' => AccessRule::className(),
+                ],
+                'rules' => [
+                    [
+                        'actions' => [''],
+                        'allow' => true,
+                        'roles' => ['admin']
+                    ],
+                    [
+                        'actions' => ['index', 'request'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actionIndex()
+    {
+        $requests = UserWithdrawal::findAll(['user_id' => Yii::$app->user->id]);
+        return $this->render('index', [
+            'requests' => $requests
+        ]);
+    }
+
+    /**
+     * Ads Earning Withdrawal flow
+     *  - User clicks ads (earn per click)
+     *  - User hits withdrawal Request
+     *    # Add all ads earnings to the user_earnings table
+     *    # Save currently added earning to history
+     *    # Create withdrawal request
+     * 
+     * @return yii\web\View
+     */
+    public function actionRequest()
+    {
+        // Set earnings
+        if ($earnings = UserEarnings::addEarnings($type = 'ad_clicks', $amount = UserEarnings::calcEarned(), $user_id = Yii::$app->user->id)) {
+            // Request withdrawal
+            $withdrawal = new UserWithdrawal;
+            $withdrawal->type = 'full';
+            $withdrawal->user_id = $earnings->user_id;
+            $withdrawal->value = $earnings->value;
+            $withdrawal->status = 6;
+            $withdrawal->save();
+        }
+
+        return $this->redirect('index');
+    }
+}

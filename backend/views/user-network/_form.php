@@ -16,7 +16,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'placement')->textInput() ?>
 
-    <?= $form->field($model, 'position')->textInput() ?>
+    <?= $form->field($model, 'position')->dropDownList([0 => 'left', 1 => 'right'], []); ?>
 
     <?= $form->field($model, 'code')->textInput(['maxlength' => true]) ?>
 
