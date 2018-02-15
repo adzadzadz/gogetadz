@@ -67,6 +67,9 @@ class UserWithdrawalSearch extends UserWithdrawal
             'created_at' => $this->created_at,
         ]);
 
+        $query->joinWith('profile');
+        $query->joinWith('coins');
+
         $query->andFilterWhere(['like', 'type', $this->type]);
 
         return $dataProvider;
