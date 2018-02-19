@@ -6,16 +6,16 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 
 /**
- * This is the model class for table "{{%user_withdrawal}}".
+ * This is the model class for table "{{%coins_ph_address}}".
  *
  * @property int $id
  * @property int $user_id
- * @property string $type
- * @property double $value
+ * @property string $tag
+ * @property string $value
  * @property int $status
  * @property int $created_at
  */
-class UserWithdrawal extends \yii\db\ActiveRecord
+class CoinsPhAddress extends \yii\db\ActiveRecord
 {
 
     public function behaviors()
@@ -34,7 +34,7 @@ class UserWithdrawal extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%user_withdrawal}}';
+        return '{{%coins_ph_address}}';
     }
 
     /**
@@ -43,23 +43,12 @@ class UserWithdrawal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'value', 'status'], 'required'],
             [['user_id', 'status', 'created_at'], 'integer'],
-            [['value'], 'number'],
-            ['status', 'default', 'value' => 6],
-            [['type'], 'string', 'max' => 255],
-            ['type', 'default', 'value' => 'default']
+            [['tag', 'value'], 'string', 'max' => 255],
+            [['tag'], 'default', 'value' => 'primary'],
+            ['user_id', 'default', 'value' => Yii::$app->user->id],
+            ['status', 'default', 'value' => 10]
         ];
-    }
-
-    public function getProfile()
-    {
-        return $this->hasOne(Profile::classname(), ['user_id' => 'user_id']);
-    }
-
-    public function getCoins()
-    {
-        return $this->hasOne(CoinsPhAddress::classname(), ['user_id' => 'user_id']);   
     }
 
     /**
@@ -70,8 +59,8 @@ class UserWithdrawal extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'user_id' => 'User ID',
-            'type' => 'Type',
-            'value' => 'Value',
+            'tag' => 'Tag',
+            'value' => 'Update Coins PH Address',
             'status' => 'Status',
             'created_at' => 'Created At',
         ];

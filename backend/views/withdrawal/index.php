@@ -25,9 +25,20 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'user_id',
-            'type',
+            [
+                'attribute' => 'name',
+                'format' => 'html',
+                'value' => function($model) {
+                    return $model->profile->name;
+                }
+            ],
+            [
+                'attribute' => 'COINS PH Address',
+                'format' => 'html',
+                'value' => function($model) {
+                    return $model->coins !== null ? $model->coins->value : 'NOT SET';
+                }
+            ],
             'value',
             [
                 'attribute' => 'status',

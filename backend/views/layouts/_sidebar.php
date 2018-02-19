@@ -46,40 +46,40 @@ $favouriteMenuItems[] = ['label' => 'MAIN NAVIGATION', 'options' => ['class' => 
 
 $menuItems[] = [
     'url' => [ Url::to(["/site"]) ],
-    'icon' => 'cog',
+    'icon' => 'home',
     'label' => 'Home',
 ];
 
 $menuItems[] = [
     'url' => [ Url::to(['/user/settings/profile']) ],
-    'icon' => 'cog',
+    'icon' => 'address-book',
     'label' => 'Account',
 ];
 
 if (\Yii::$app->user->identity->isAdmin) {
     
     $menuItems[] = [
-        'icon' => 'cog',
+        'icon' => 'cogs',
         'label' => 'Admin Controls',
         'items' => [
             [
                 'url' => [ Url::to(['/user/admin']) ],
-                'icon' => 'cog',
+                'icon' => 'user',
                 'label' => 'User',
             ],
             [
                 'url' => [ Url::to(['/advertisement']) ],
-                'icon' => 'cog',
+                'icon' => 'clipboard',
                 'label' => 'Advertisements',
             ],
             [
                 'url' => [ Url::to(['/codes']) ],
-                'icon' => 'cog',
+                'icon' => 'code',
                 'label' => 'Codes',
             ],
             [
                 'url' => [ Url::to(["/withdrawal"]) ],
-                'icon' => 'cog',
+                'icon' => 'credit-card',
                 'label' => 'Withdrawal Requests',
             ]
         ]
@@ -89,26 +89,26 @@ if (\Yii::$app->user->identity->isAdmin) {
 
 $menuItems[] = [
     'url' => [ Url::to(["/network/binary-tree"]) ],
-    'icon' => 'cog',
+    'icon' => 'users',
     'label' => 'Binary Tree',
 ];
 
 $menuItems[] = [
     'url' => [ Url::to(["/site/click-ads"]) ],
-    'icon' => 'cog',
+    'icon' => 'clipboard',
     'label' => 'Click Ads',
 ];
 
 $menuItems[] = [
     'url' => [ Url::to(["/withdrawal/user-index"]) ],
-    'icon' => 'cog',
+    'icon' => 'credit-card',
     'label' => 'Withdraw',
 ];
 
 
 
 $menuItems[] = [
-    'icon' => 'cog',
+    'icon' => 'sign-out',
     'label' => 'Logout',
     'url' => ['/user/security/logout'],
     'template' => '<a href="{url}" data-method="post">{icon}{label}</a>' ,
