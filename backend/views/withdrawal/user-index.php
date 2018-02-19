@@ -1,29 +1,16 @@
 <?php
 /* @var $this yii\web\View */
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 $this->title = 'Withdrawal Requests';
 ?>
 
 <section class="row">
+  
   <div class="col-md-4">
-    <?php $form = ActiveForm::begin(); ?>
-    
-    <?= $form->field($coinsPh, 'value')->textInput() ?>
-    
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-  </div>
-  <div class="col-md-12" style="margin-top: 30px;">
-    <h3>Withdraw <?= Yii::$app->appConfig->getCurrencySymbol() ?><?= $totalIncome ?> to COINS PH ADDRESS: <small><?= $coinsPh->value ?></small></h3>
     <a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-lg btn-primary">
-        Widthraw
+        Widthraw (<?= Yii::$app->appConfig->getCurrencySymbol() ?><?= $totalIncome ?>)
     </a>
   </div>
+
 </section>
 
 <section id="requests" class="row">

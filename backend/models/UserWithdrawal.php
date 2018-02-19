@@ -52,16 +52,6 @@ class UserWithdrawal extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getProfile()
-    {
-        return $this->hasOne(Profile::classname(), ['user_id' => 'user_id']);
-    }
-
-    public function getCoins()
-    {
-        return $this->hasOne(CoinsPhAddress::classname(), ['user_id' => 'user_id']);   
-    }
-
     /**
      * @inheritdoc
      */
