@@ -17,6 +17,7 @@ $this->title = 'Binary Tree';
     /*margin-bottom: 10px;*/
     text-align: center;
     min-height: 100px;
+	color:green;
   }
   .id {
     font-weight: bold;
@@ -26,47 +27,72 @@ $this->title = 'Binary Tree';
     height: 100%;
   }
   .level0 {
-    background: #e6ee9c;
+    background: ;
+  }
+  .level0:hover {
+    color:red;
   }
   .level1 {
-    background: #80d8ff;
+    background: ;
+  }
+  .level1:hover {
+    color:red;
   }
   .level2 {
-    background: #b9f6ca;
+    background: ;
+	margin-left:-22%;
+  }
+  .level2:hover {
+    color:red;
   }
   .gray {
-    background: #e0e0e0;
+    background: ;
   }
   .master {
-    background: #80deea;
+    background: ;
   }
   a.binary-link {
     color: #000;
   }
   a.binary-link:hover {
-    font-size: 1.2em;
+    //font-size: 1.2em;
+	background-color: ;
+  }
+  .info{
+	  opacity:.01;
+	  margin-top:-38%;
+	  border-radius:30px;
+	  width:100px;height:60px;background-color:white;margin-left:-30%
+	  
+  }
+  .info:hover{
+	  opacity:1;
+	  margin-top:-38%;
+	  border-radius:5px;
+	  width:100px;height:40px;background-color:white;margin-left:-30%
   }
 </style>
 
 <div class="binary-user" style="width:100%;">
   <div class="level master">
     <div style="width: 200px; margin: 0 auto;">
-      <div class="pull-left">
+      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;margin-left:26%"class="pull-left">
+	     <div style="line-height:60px"class="id" > ID:<?= $network[$id][0][0][0]['id'] ?></div>
         <?php echo \cebe\gravatar\Gravatar::widget(
             [
                 'email' => $network[$id][0][0][0]['email'],
-                'defaultImage' => 'robohash',
+                'defaultImage' => 'img',
                 'options' => [
                     'alt' => '',
                 ],
                 'size' => 60,
             ]
         ); ?>
+		
       </div>
-      <div>
-        <div class="username"><?= $network[$id][0][0][0]['username'] ?></div>
-        <div class="id">ID: <?= $network[$id][0][0][0]['id'] ?></div>
-        <div class="name"><?= $network[$id][0][0][0]['name'] ? $network[$id][0][0][0]['name'] : 'NO NAME' ?></div>
+      <div >
+        <div class="username"><?= $network[$id][0][0][0]['username'] ?></div>        
+        <div class="name" style="margin-right:-10%"><?= $network[$id][0][0][0]['name'] ? $network[$id][0][0][0]['name'] : 'NO NAME' ?></div>
       </div>
     </div>
   </div>
@@ -103,39 +129,47 @@ $this->title = 'Binary Tree';
 
 <?php if($network[$id][$level + 1][$group][$position]['id'] == null): ?>
   <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
-    <a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $network[$id][$level + 1][$group][$position]['placement'], 'position' => $position]) ?>">
+    
       <div class="level gray ?>">
         <div class="filler-icon" style="font-size: 3em;">
+		<a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $network[$id][$level + 1][$group][$position]['placement'], 'position' => $position]) ?>">
           <i class="fa fa-user"></i>
+		</a>   
         </div>
       </div>
-    </a>
+    
   </div>
 <?php else: ?>
   <div class="binary-user pull-left" style="width:<?= (100 / $counter1 / 2) ?>%;">
-    <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network[$id][$level + 1][$group][$position]['id']]) ?>">
+    
       <div class="level level<?= $level ?>">
         <div style="<?= $level != 2 ? 'width: 200px; margin: 0 auto;' : '' ?>">
-          <div class="<?= $level != 2 ? 'pull-left' : '' ?>">
-            <?php echo \cebe\gravatar\Gravatar::widget(
+		<a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network[$id][$level + 1][$group][$position]['id']]) ?>">
+          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;margin-left:33.33%" class="<?= $level != 2 ? 'pull-left' : '' ?>">
+		  <div style="line-height:60px" class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
+            <?php /*echo \cebe\gravatar\Gravatar::widget(
                 [
                     'email' => $network[$id][$level + 1][$group][$position]['email'],
-                    'defaultImage' => 'robohash',
+                    'defaultImage' => '1',
                     'options' => [
                         'alt' => '',
                     ],
                     'size' => 60,
                 ]
-            ); ?>
-          </div>
-          <div>
-            <div class="username"><?= $network[$id][$level + 1][$group][$position]['username'] ?></div>
-            <div class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
-            <div class="name"><?= $network[$id][$level + 1][$group][$position]['name'] ? $network[$id][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
+            );*/ ?>
+			   <div class="info" style="">
+		         <div class="username"><?= $network[$id][$level + 1][$group][$position]['username'] ?></div>           
+                 <div class="name"><?= $network[$id][$level + 1][$group][$position]['name'] ? $network[$id][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
+		       </div>
+
+             </div>
+		       
+		   </a>
+          <div>           
           </div>
         </div>
       </div>
-    </a>
+   
   </div>
 <?php endif ?>
 
