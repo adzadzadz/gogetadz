@@ -25,22 +25,38 @@ $this->title = 'Binary Tree';
   .level {
     padding: 15px;
     height: 100%;
+	margin-left:35%;
+	margin-right:33%;
+  }
+  @media(max-width:700px){
+   .level{
+	margin-left:20%;
+	margin-right:5%;
+  }	
   }
   .level0 {
     background: ;
+	margin-left:40%;
+	margin-right:40%;
+  }
+  @media(max-width:700px){
+   .level0{
+	margin-left:40%;
+  }	
   }
   .level0:hover {
     color:red;
   }
   .level1 {
     background: ;
+	margin-left:30%;
   }
   .level1:hover {
     color:red;
   }
   .level2 {
     background: ;
-	margin-left:-22%;
+	margin-left:2%;
   }
   .level2:hover {
     color:red;
@@ -145,7 +161,7 @@ $this->title = 'Binary Tree';
       <div class="level level<?= $level ?>">
         <div style="<?= $level != 2 ? 'width: 200px; margin: 0 auto;' : '' ?>">
 		<a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network[$id][$level + 1][$group][$position]['id']]) ?>">
-          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;margin-left:33.33%" class="<?= $level != 2 ? 'pull-left' : '' ?>">
+          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;margin-left:-5%" class="<?= $level != 2 ? 'pull-left' : '' ?>">
 		  <div style="line-height:60px" class="id">ID: <?= $network[$id][$level + 1][$group][$position]['id'] ?></div>
             <?php /*echo \cebe\gravatar\Gravatar::widget(
                 [
