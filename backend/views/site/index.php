@@ -7,23 +7,23 @@ $this->title = 'Home';
 <style>
 .block1 {
     position:relative;;
-	width:120%;
+	width:110%;
 	margin-top:0%;
 }
 .block2 {
     position:relative;
 	//margin-top:22%;
-	width:120%;
+	width:110%;
 }
 .block3 {
     position:relative;
 	margin-top:0%;
-	width:120%;
+	width:110%;
 }
 .block4 {
     position:relative;
 	//margin-top:40%;
-	width:120%;
+	width:110%;
 }
 .container{
 	//width:1000px;
