@@ -153,10 +153,6 @@ $this->title = 'Home';
 
         <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $binaryStatementEarned ?></span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
-
-        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> </span>
-        <a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
-
       </div>
     </div>
   </div>
