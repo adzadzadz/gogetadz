@@ -150,13 +150,13 @@ $this->title = 'Home';
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Total Earnings</span>
-<<<<<<< HEAD
+
         <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $binaryStatementEarned ?></span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
-=======
+
         <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> </span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
->>>>>>> 56c074ef44efe30153b96ff6e90d121852af1c7c
+
       </div>
     </div>
   </div>
