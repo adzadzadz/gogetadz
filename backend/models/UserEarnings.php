@@ -66,6 +66,7 @@ class UserEarnings extends \yii\db\ActiveRecord
         $withdrawalValue = $withdrawal !== null ? $withdrawal->value : 0;
 
         return round(Yii::$app->appConfig->registrationEarnings + $totals['income'] - $withdrawalValue, 2);
+<<<<<<< HEAD
     }
 
     /**
@@ -81,6 +82,8 @@ class UserEarnings extends \yii\db\ActiveRecord
     public static function calcDirectReferrals()
     {
         return UserNetwork::countUnilevelMembers() * 2;
+=======
+>>>>>>> 56c074ef44efe30153b96ff6e90d121852af1c7c
     }
 
     /**
