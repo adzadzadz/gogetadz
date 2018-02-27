@@ -53,8 +53,9 @@ class UserEarnings extends \yii\db\ActiveRecord
     }
 
     /**
+     * This collects all earning types
      * properly calculate the earnings before saving
-     * @return [type] [description]
+     * @return Integer The total earned amount
      */
     public static function calcEarned()
     {
@@ -64,7 +65,22 @@ class UserEarnings extends \yii\db\ActiveRecord
         $withdrawal = UserWithdrawal::findOne(['user_id' => Yii::$app->user->id]);
         $withdrawalValue = $withdrawal !== null ? $withdrawal->value : 0;
 
-        return round($totals['income'] - $withdrawalValue, 2);
+        return round(Yii::$app->appConfig->registrationEarnings + $totals['income'] - $withdrawalValue, 2);
+    }
+
+    /**
+     * This collects Binary level earnings
+     * properly calculate the earnings before saving
+     * @return Integer The total earned amount
+     */
+    public static function calcBinaryEarned()
+    {
+        return round(Yii::$app->appConfig->registrationEarnings + UserEarnings::calcDirectReferrals(), 2);
+    }
+
+    public static function calcDirectReferrals()
+    {
+        return UserNetwork::countUnilevelMembers() * 2;
     }
 
     /**

@@ -58,6 +58,7 @@ return [
         ],
         'appConfig' => [
             'class' => 'app\models\Gogetadz',
+            'registrationEarnings' => 6,
             'adIncome' => 0.2,
             'currency' => 'USD',
         ]

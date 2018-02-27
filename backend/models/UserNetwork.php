@@ -37,6 +37,14 @@ class UserNetwork extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getUnilevelMembers() {
+        return UserNetwork::findAll(['sponsor' => Yii::$app->user->id]);
+    }
+
+    public static function countUnilevelMembers() {
+        return count(UserNetwork::getUnilevelMembers());
+    }
+
     public static function getBinary($id, $maxLevels = 3)
     {
         $user = User::find()
