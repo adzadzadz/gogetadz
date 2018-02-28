@@ -17,7 +17,6 @@ $this->title = 'Binary Tree';
     /*margin-bottom: 10px;*/
     text-align: center;
     min-height: 100px;
-	color:green;
   }
   .id {
     font-weight: bold;
@@ -25,8 +24,8 @@ $this->title = 'Binary Tree';
   .level {
     padding: 15px;
     height: 100%;
-	margin-left:35%;
-	margin-right:33%;
+	margin-left:37%;
+	margin-right:31%;
   }
   @media(max-width:700px){
    .level{
@@ -36,8 +35,8 @@ $this->title = 'Binary Tree';
   }
   .level0 {
     background: ;
-	margin-left:40%;
-	margin-right:40%;
+	margin-left:45%;
+	margin-right:38%;
   }
   @media(max-width:700px){
    .level0{
@@ -49,14 +48,14 @@ $this->title = 'Binary Tree';
   }
   .level1 {
     background: ;
-	margin-left:30%;
+	margin-left:36%;
   }
   .level1:hover {
     color:red;
   }
   .level2 {
     background: ;
-	margin-left:2%;
+	margin-left:12%;
   }
   .level2:hover {
     color:red;
