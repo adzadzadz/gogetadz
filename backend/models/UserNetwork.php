@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use dektrium\user\models\Profile;
+//use dektrium\user\models\Profile;
 
 /**
  * This is the model class for table "{{%user_network}}".
