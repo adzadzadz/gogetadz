@@ -60,18 +60,23 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $id = Yii::$app->user->id;
         $userAds = new \app\models\UserAdvertisement;
         $totals = $userAds->getTotals();
         $binaryStatementEarned = \app\models\UserEarnings::calcBinaryEarned();
         $directReferrals = \app\models\UserEarnings::calcDirectReferrals();
         $directReferralsCount = \app\models\UserNetwork::countUnilevelMembers();
+        $network = \app\models\UserNetwork::getBinary($id);
+        $earned = \app\models\UserEarnings::getEarnings();
+        // return var_dump($earned['ad_clicks']);
 
         return $this->render('index', [
             'binaryStatementEarned' => $binaryStatementEarned,
             'clickCount'  => $totals['count'],
-            'adsEarned'   => $totals['income'],
             'directReferrals' => $directReferrals,
-            'directReferralsCount' => $directReferralsCount
+            'directReferralsCount' => $directReferralsCount,
+            'network' => $network,
+            'earned' => $earned,
         ]);
     }
 
