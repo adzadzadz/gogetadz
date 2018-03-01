@@ -62,11 +62,16 @@ class SiteController extends Controller
     {
         $userAds = new \app\models\UserAdvertisement;
         $totals = $userAds->getTotals();
-        $earned = \app\models\UserEarnings::calcEarned();
+        $binaryStatementEarned = \app\models\UserEarnings::calcBinaryEarned();
+        $directReferrals = \app\models\UserEarnings::calcDirectReferrals();
+        $directReferralsCount = \app\models\UserNetwork::countUnilevelMembers();
 
         return $this->render('index', [
-            'totalIncome' => $earned,
-            'clickCount'  => $totals['count']
+            'binaryStatementEarned' => $binaryStatementEarned,
+            'clickCount'  => $totals['count'],
+            'adsEarned'   => $totals['income'],
+            'directReferrals' => $directReferrals,
+            'directReferralsCount' => $directReferralsCount
         ]);
     }
 

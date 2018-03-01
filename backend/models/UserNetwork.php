@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-use dektrium\user\models\Profile;
+//use dektrium\user\models\Profile;
 
 /**
  * This is the model class for table "{{%user_network}}".
@@ -35,6 +35,14 @@ class UserNetwork extends \yii\db\ActiveRecord
             [['code'], 'string', 'max' => 255],
             [['user_id'], 'unique'],
         ];
+    }
+
+    public static function getUnilevelMembers() {
+        return UserNetwork::findAll(['sponsor' => Yii::$app->user->id]);
+    }
+
+    public static function countUnilevelMembers() {
+        return count(UserNetwork::getUnilevelMembers());
     }
 
     public static function getBinary($id, $maxLevels = 3)

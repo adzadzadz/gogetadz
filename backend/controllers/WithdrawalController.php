@@ -80,19 +80,30 @@ class WithdrawalController extends Controller
      *    # Add all ads earnings to the user_earnings table
      *    # Save currently added earning to history
      *    # Create withdrawal request
-     * 
+     * @param  String $type can be 'ads_clicks', 'binary', 'unilevel'
      * @return yii\web\View
      */
-    public function actionRequest()
+    public function actionRequest($type)
     {
+        if ($type == 'ad_clicks') {
+            $userAd = new \app\models\UserAdvertisement;
+            $totals = $userAd->getTotals();
+            $earned = $totals['income'];
+        } elseif ($type == 'binary') {
+            $earned = UserEarnings::calcBinaryEarned();
+        } else {
+            return $this->redirect('user-index');
+        }
+
+
         // Set earnings
-        if ($earnings = UserEarnings::addEarnings($type = 'ad_clicks', $amount = UserEarnings::calcEarned(), $user_id = Yii::$app->user->id)) {
+        if ($earnings = UserEarnings::addEarnings($type, $earned, $user_id = Yii::$app->user->id)) {
             // Request withdrawal
             $withdrawal = new UserWithdrawal;
-            $withdrawal->type = 'full';
+            $withdrawal->type = $type;
             $withdrawal->user_id = $earnings->user_id;
             $withdrawal->value = $earnings->value;
-            $withdrawal->status = 6;
+            $withdrawal->status = UserWithdrawal::STATUS_PENDING;
             $withdrawal->save();
         }
 
