@@ -25,22 +25,22 @@ $this->title = 'Binary Tree';
     padding: 15px;
     height: 100%;
 	margin-left:37%;
-	margin-right:31%;
+	margin-right:33%;
   }
   @media(max-width:700px){
    .level{
-	margin-left:20%;
-	margin-right:5%;
+	margin-left:27%;
+	margin-right:10%;
   }	
   }
   .level0 {
     background: ;
-	margin-left:45%;
+	margin-left:43%;
 	margin-right:38%;
   }
   @media(max-width:700px){
    .level0{
-	margin-left:40%;
+	margin-left:44%;
   }	
   }
   .level0:hover {
@@ -55,7 +55,7 @@ $this->title = 'Binary Tree';
   }
   .level2 {
     background: ;
-	margin-left:12%;
+	margin-left:10%;
   }
   .level2:hover {
     color:red;
