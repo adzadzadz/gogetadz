@@ -62,8 +62,16 @@ class UserNetwork extends \yii\db\ActiveRecord
         $leftUpline = self::getDownline($network[$user->id][0][0][0]['id'], 0);
         $rightUpline = self::getDownline($network[$user->id][0][0][0]['id'], 1);
 
-        $left = self::getTreeByPosition($leftUpline[0]->id, 'left', $maxLevels);
-        $right = self::getTreeByPosition($rightUpline[0]->id, 'right', $maxLevels);
+        $left = null;
+        $right = null;
+        
+        if ($leftUpline) {
+            $left = self::getTreeByPosition($leftUpline[0]->id, 'left', $maxLevels);
+        }
+        
+        if ($rightUpline) {
+            $right = self::getTreeByPosition($rightUpline[0]->id, 'right', $maxLevels);
+        }        
         
         return [
             'master' => $network,
