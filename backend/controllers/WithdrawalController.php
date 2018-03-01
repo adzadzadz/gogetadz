@@ -32,7 +32,7 @@ class WithdrawalController extends Controller
                         'roles' => ['admin']
                     ],
                     [
-                        'actions' => ['user-index', 'request'],
+                        'actions' => ['user-index', 'request', 'update-earnings'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -108,6 +108,12 @@ class WithdrawalController extends Controller
         }
 
         return $this->redirect('user-index');
+    }
+
+    public function actionUpdateEarnings()
+    {
+        UserEarnings::updateEarnings();
+        return $this->redirect('/site/index');
     }
 
 

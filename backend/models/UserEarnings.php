@@ -75,12 +75,37 @@ class UserEarnings extends \yii\db\ActiveRecord
      */
     public static function calcBinaryEarned()
     {
-        return round(Yii::$app->appConfig->registrationEarnings + UserEarnings::calcDirectReferrals(), 2);
+        $network = \app\models\UserNetwork::getBinary(Yii::$app->user->id);
+        return round(
+            Yii::$app->appConfig->registrationEarnings + 
+            UserEarnings::calcDirectReferrals() + 
+            (min($network['left']['count'], $network['right']['count']) * 3)
+        , 2);
+    }
+
+    public static function updateEarnings()
+    {   
+        $userAd = new UserAdvertisement;
+        self::addEarnings($type = 'ad_clicks', $amount = $userAd->getTotals()['income'], $user_id = Yii::$app->user->id);
+        self::addEarnings($type = 'binary', $amount = self::calcBinaryEarned(), $user_id = Yii::$app->user->id);
+        return true;
     }
 
     public static function calcDirectReferrals()
     {
         return UserNetwork::countUnilevelMembers() * 2;
+    }
+
+    public static function getEarnings()
+    {
+        $earned = UserEarnings::findAll(['user_id' => Yii::$app->user->id]);
+
+        $data = [];
+        foreach ($earned as $each) {
+            $data[$each->type] = $each;   
+        }
+
+        return $data;
     }
 
     /**

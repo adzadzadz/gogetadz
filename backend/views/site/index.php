@@ -36,7 +36,12 @@ $this->title = 'Home';
 </style>
 <div class="container">
 <h4 style="margin-top:2px;margin-left:4%;">Ads clicked Details</h4>
-<div class="block1" >
+
+<section id="update-earned-totals">
+  <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE EARNINGS</button></a>
+</section>
+
+<div class="block1">
 <section>  
   <div class="col-md-3 col-sm-6">
     <div class="info-box">
@@ -53,7 +58,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $adsEarned ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0 ?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -63,7 +68,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Total Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $adsEarned ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0 ?></span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'ad_clicks']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>
@@ -129,7 +134,9 @@ $this->title = 'Home';
       <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Pairing Bonus</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px">
+          <?= min($network['left']['count'], $network['right']['count']) ?>
+        </span>
       </div>
     </div>
   </div>
@@ -139,7 +146,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 3; ?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -151,7 +158,7 @@ $this->title = 'Home';
       <div class="info-box-content">
         <span class="info-box-text">Total Earnings</span>
 
-        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $binaryStatementEarned ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['binary']->value) ? $earned['binary']->value : 0 ?></span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>
