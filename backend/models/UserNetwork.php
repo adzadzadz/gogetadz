@@ -174,7 +174,7 @@ class UserNetwork extends \yii\db\ActiveRecord
 
         return [
             'id' => $id,
-            'count' => $leftCounter + $rightCounter,
+            'count' => $leftCounter + $rightCounter + 1,
             'network' => $network,
         ];
     }
