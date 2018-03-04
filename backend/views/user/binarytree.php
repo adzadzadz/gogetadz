@@ -88,8 +88,8 @@ $this->title = 'Binary Tree';
   }
 </style>
 
-<h1>LEFT <?= $network['left']['count'] ?></h1>
-<h1>RIGHT <?= $network['right']['count'] ?></h1>
+<h4>LEFT: <?= $network['left']['count'] ?></h4>
+<h4>RIGHT: <?= $network['right']['count'] ?></h4>
 <div class="binary-user" style="width:100%;">
   <div class="level master">
     <div style="width: 200px; margin: 0 auto;">

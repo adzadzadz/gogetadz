@@ -45,7 +45,7 @@ class UserNetwork extends \yii\db\ActiveRecord
         return count(UserNetwork::getUnilevelMembers());
     }
 
-    public static function getBinary($id, $maxLevels = 5)
+    public static function getBinary($id, $maxLevels = 8)
     {
         $user = User::find()
             ->joinWith('network')
