@@ -138,7 +138,7 @@ $this->title = 'Binary Tree';
 <section class="pull-left col-md-6">
 <?php
 
-  for ($level=0; $level < 3 ; $level++) {
+  for ($level=0; $level < 2 ; $level++) {
 
     if($level == 0) {
       $counter1 = 1;
@@ -227,7 +227,7 @@ $this->title = 'Binary Tree';
 <section class="pull-left col-md-6">
 <?php
 
-  for ($level=0; $level < 3 ; $level++) {
+  for ($level=0; $level < 2 ; $level++) {
 
     if($level == 0) {
       $counter1 = 1;
@@ -236,7 +236,7 @@ $this->title = 'Binary Tree';
       $counter1 = 2;
     }
     else if($level == 3) {
-      $counter1 = 8;
+      $counter1 = 4;
     }
     else {
       $counter1 = $level * $level;

@@ -37,9 +37,7 @@ $this->title = 'Home';
 <div class="container">
 <h4 style="margin-top:2px;margin-left:4%;">Ads clicked Details</h4>
 
-<section id="update-earned-totals">
-  <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE EARNINGS</button></a>
-</section>
+
 
 <div class="block1">
 <section>  
@@ -133,7 +131,10 @@ $this->title = 'Home';
     <div class="info-box">
       <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Pairing Bonus</span>
+        <span class="info-box-text"></span>
+		<section id="update-earned-totals">
+  <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE PAIRING</button></a>
+</section>
         <span class="info-box-number" style="text-align:center;line-height:40px">
           <?= min($network['left']['count'], $network['right']['count']) ?>
         </span>
@@ -220,7 +221,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Total Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:30px"> </span>
+        <span class="info-box-number" style="text-align:center;line-height:30px">$ </span>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>
