@@ -45,7 +45,7 @@ class UserNetwork extends \yii\db\ActiveRecord
         return count(UserNetwork::getUnilevelMembers());
     }
 
-    public static function getBinary($id, $maxLevels = 8)
+    public static function getBinary($id, $maxLevels = 10)
     {
         $user = User::find()
             ->joinWith('network')
@@ -154,6 +154,7 @@ class UserNetwork extends \yii\db\ActiveRecord
                         'name'      => $data->profile->name,
                         'placement' => $data->network->placement,
                       ];
+					  
                       $leftCounter++ ;
                     }
                     foreach ($downline['right'] as $data) {

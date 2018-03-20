@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-
+use yii\helpers\Url;
 $this->title = 'Home';
 ?>
 <style>
@@ -34,11 +34,12 @@ $this->title = 'Home';
 }
 
 </style>
+<section id="update-earned-totals">
+  <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE EARNINGS</button></a>
+</section><br><br>
+
 <div class="container">
 <h4 style="margin-top:2px;margin-left:4%;">Ads clicked Details</h4>
-
-
-
 <div class="block1">
 <section>  
   <div class="col-md-3 col-sm-6">
@@ -56,7 +57,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0 ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><?= $clickCount *.001?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -82,7 +83,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Sign-up Bonus</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px">1</span>
       </div>
     </div>
   </div>
@@ -132,9 +133,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
       <div class="info-box-content">
         <span class="info-box-text"></span>
-		<section id="update-earned-totals">
-  <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE PAIRING</button></a>
-</section>
+        <span class="info-box-text">Pairing</span>
         <span class="info-box-number" style="text-align:center;line-height:40px">
           <?= min($network['left']['count'], $network['right']['count']) ?>
         </span>
@@ -147,7 +146,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 3; ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 2; ?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
