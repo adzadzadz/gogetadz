@@ -23,8 +23,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
+            ['class' => 'yii\grid\SerialColumn'],           
+                'user_id',
             [
                 'attribute' => 'name',
                 'format' => 'html',
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             [
-                'attribute' => 'COINS PH Address',
+                'attribute' => 'COINS PH Wallet Address',
                 'format' => 'html',
                 'value' => function($model) {
                     return $model->coins !== null ? $model->coins->value : 'NOT SET';

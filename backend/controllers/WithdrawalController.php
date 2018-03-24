@@ -32,7 +32,7 @@ class WithdrawalController extends Controller
                         'roles' => ['admin']
                     ],
                     [
-                        'actions' => ['user-index', 'request'],
+                        'actions' => ['user-index', 'request', 'update-earnings'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -80,23 +80,41 @@ class WithdrawalController extends Controller
      *    # Add all ads earnings to the user_earnings table
      *    # Save currently added earning to history
      *    # Create withdrawal request
-     * 
+     * @param  String $type can be 'ads_clicks', 'binary', 'unilevel'
      * @return yii\web\View
      */
-    public function actionRequest()
+    public function actionRequest($type)
     {
+        $earned = 0;
+        if ($type == 'ad_clicks') {
+            $userAd = new \app\models\UserAdvertisement;
+            $totals = $userAd->getTotals();
+            $earned = $totals['income'];
+        } elseif ($type == 'binary') {
+            $earned = UserEarnings::calcBinaryEarned();
+        } else {
+            return $this->redirect('user-index');
+        }
+
+        $total = $earned - UserWithdrawal::getPrevRequests($type);
         // Set earnings
-        if ($earnings = UserEarnings::addEarnings($type = 'ad_clicks', $amount = UserEarnings::calcEarned(), $user_id = Yii::$app->user->id)) {
+        if ($total) {
             // Request withdrawal
             $withdrawal = new UserWithdrawal;
-            $withdrawal->type = 'full';
-            $withdrawal->user_id = $earnings->user_id;
-            $withdrawal->value = $earnings->value;
-            $withdrawal->status = 6;
+            $withdrawal->type = $type;
+            $withdrawal->user_id = Yii::$app->user->id;
+            $withdrawal->value = $total;
+            $withdrawal->status = UserWithdrawal::STATUS_PENDING;
             $withdrawal->save();
         }
 
         return $this->redirect('user-index');
+    }
+
+    public function actionUpdateEarnings()
+    {
+        UserEarnings::updateEarnings();
+        return $this->redirect('/site/index');
     }
 
 

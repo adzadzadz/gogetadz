@@ -17,6 +17,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class UserWithdrawal extends \yii\db\ActiveRecord
 {
+    const STATUS_INACTIVE = 5;
+    const STATUS_PENDING = 6;
+    const STATUS_SUCCESS = 10;
 
     public function behaviors()
     {
@@ -50,6 +53,26 @@ class UserWithdrawal extends \yii\db\ActiveRecord
             [['type'], 'string', 'max' => 255],
             ['type', 'default', 'value' => 'default']
         ];
+    }
+
+    /**
+     * Fetch the widthrawal requests performed by the user
+     * @param string  $type    Can be ad_clicks, binary, unilevel
+     * @param [type]  $user_id User ID
+     * @return  Float
+     */
+    public static function getPrevRequests($type = "binary", $user_id = null)
+    {
+        $user_id = $user_id != null ? $user_id : Yii::$app->user->id;
+
+        $requests = self::findAll(['user_id' => $user_id, 'type' => $type]);
+
+        $total = 0;
+        foreach ($requests as $request) {
+            $total = $total + $request->value;
+        }
+
+        return $total;
     }
 
     public function getProfile()

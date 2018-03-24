@@ -2,11 +2,13 @@
 
 namespace app\models;
 
-use yii\base\Object;
+use yii\base\BaseObject;
 
-class Gogetadz extends Object
+class Gogetadz extends BaseObject
 {
     public $currency;
+
+    public $registrationEarnings;
 
     public $adIncome;
 

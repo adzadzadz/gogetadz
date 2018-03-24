@@ -53,8 +53,9 @@ class UserEarnings extends \yii\db\ActiveRecord
     }
 
     /**
+     * This collects all earning types
      * properly calculate the earnings before saving
-     * @return [type] [description]
+     * @return Integer The total earned amount
      */
     public static function calcEarned()
     {
@@ -64,7 +65,47 @@ class UserEarnings extends \yii\db\ActiveRecord
         $withdrawal = UserWithdrawal::findOne(['user_id' => Yii::$app->user->id]);
         $withdrawalValue = $withdrawal !== null ? $withdrawal->value : 0;
 
-        return round($totals['income'] - $withdrawalValue, 2);
+        return round(Yii::$app->appConfig->registrationEarnings + $totals['income'] - $withdrawalValue, 2);
+    }
+
+    /**
+     * This collects Binary level earnings
+     * properly calculate the earnings before saving
+     * @return Integer The total earned amount
+     */
+    public static function calcBinaryEarned()
+    {
+        $network = \app\models\UserNetwork::getBinary(Yii::$app->user->id);
+        return round(
+            Yii::$app->appConfig->registrationEarnings + 
+            UserEarnings::calcDirectReferrals() + 
+            (min($network['left']['count'], $network['right']['count']) * 2)
+        , 2);
+    }
+
+    public static function updateEarnings()
+    {   
+        $userAd = new UserAdvertisement;
+        self::addEarnings($type = 'ad_clicks', $amount = $userAd->getTotals()['income'], $user_id = Yii::$app->user->id);
+        self::addEarnings($type = 'binary', $amount = self::calcBinaryEarned(), $user_id = Yii::$app->user->id);
+        return true;
+    }
+
+    public static function calcDirectReferrals()
+    {
+        return UserNetwork::countUnilevelMembers() * 2;
+    }
+
+    public static function getEarnings()
+    {
+        $earned = UserEarnings::findAll(['user_id' => Yii::$app->user->id]);
+
+        $data = [];
+        foreach ($earned as $each) {
+            $data[$each->type] = $each;   
+        }
+
+        return $data;
     }
 
     /**
@@ -78,7 +119,13 @@ class UserEarnings extends \yii\db\ActiveRecord
         $user_id = $user_id !== null ? $user_id : Yii::$app->user->id;
         $earnings = UserEarnings::findOne(['user_id' => $user_id, 'type' => $type]);
 
-        if ($amount <= 0 || $earnings && $earnings->value <= $amount) {
+        if (!$earnings) {
+            $currentEarning = 0;
+        } else {
+            $currentEarning = $earnings->value;
+        }
+
+        if ($amount <= 0 || $currentEarning >= $amount) {
             Yii::$app->session->setFlash(
                 'danger',
                 'Nothing has changed for your account.'
