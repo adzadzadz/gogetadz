@@ -85,6 +85,7 @@ class WithdrawalController extends Controller
      */
     public function actionRequest($type)
     {
+        $earned = 0;
         if ($type == 'ad_clicks') {
             $userAd = new \app\models\UserAdvertisement;
             $totals = $userAd->getTotals();
@@ -95,14 +96,14 @@ class WithdrawalController extends Controller
             return $this->redirect('user-index');
         }
 
-
+        $total = $earned - UserWithdrawal::getPrevRequests($type);
         // Set earnings
-        if ($earnings = UserEarnings::addEarnings($type, $earned, $user_id = Yii::$app->user->id)) {
+        if ($total) {
             // Request withdrawal
             $withdrawal = new UserWithdrawal;
             $withdrawal->type = $type;
-            $withdrawal->user_id = $earnings->user_id;
-            $withdrawal->value = $earnings->value;
+            $withdrawal->user_id = Yii::$app->user->id;
+            $withdrawal->value = $total;
             $withdrawal->status = UserWithdrawal::STATUS_PENDING;
             $withdrawal->save();
         }
