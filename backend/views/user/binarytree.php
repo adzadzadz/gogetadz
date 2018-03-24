@@ -21,22 +21,22 @@ $this->title = 'Binary Tree';
   .id {
     font-weight: bold;
   }
-  .level {
+ .level {
     padding: 15px;
     height: 100%;
-	margin-left:37%;
-	margin-right:31%;
+	margin-left:45%;
+	margin-right:33%;
   }
   @media(max-width:700px){
    .level{
-	margin-left:20%;
-	margin-right:5%;
+	margin-left:45%;
+	margin-right:33%;
   }	
   }
   .level0 {
     background: ;
-	margin-left:45%;
-	margin-right:38%;
+	margin-left:39%;
+	margin-right:40%;
   }
   @media(max-width:700px){
    .level0{
@@ -48,22 +48,12 @@ $this->title = 'Binary Tree';
   }
   .level1 {
     background: ;
-	margin-left:36%;
+	margin-left:30%;
   }
   .level1:hover {
     color:red;
   }
-  .level2 {
-    background: ;
-	margin-left:12%;
-  }
-  .level2:hover {
-    color:red;
-  }
   .gray {
-    background: ;
-  }
-  .master {
     background: ;
   }
   a.binary-link {
@@ -86,59 +76,90 @@ $this->title = 'Binary Tree';
 	  border-radius:5px;
 	  width:100px;height:40px;background-color:white;margin-left:-30%
   }
+  .level master
 </style>
 
-<h1>LEFT <?= $network['left']['count'] ?></h1>
-<h1>RIGHT <?= $network['right']['count'] ?></h1>
-<div class="binary-user" style="width:100%;">
+<h4>LEFT: <?= $network['left']['count'] ?></h4>
+<h4>RIGHT: <?= $network['right']['count'] ?></h4>
+<div class="main_master">
+<div class="binary-user" style="width:100%;margin-left:2%;">
   <div class="level master">
     <div style="width: 200px; margin: 0 auto;">
-      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;margin-left:26%" class="pull-left">
+      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;" class="pull-left">
        <div style="line-height:60px" class="id" > ID:<?= $network['master'][$id][0][0][0]['id'] ?></div>
     
       </div>
       <div >
         <div class="username"><?= $network['master'][$id][0][0][0]['username'] ?></div>        
-        <div class="name" style="margin-right:-10%"><?= $network['master'][$id][0][0][0]['name'] ? $network['left']['network'][$network['left']['id']][0][0][0]['name'] : 'NO NAME' ?></div>
+        <div class="name" style="margin-right:-10%"><?= $network['master'][$id][0][0][0]['name'] ?></div>
       </div>
     </div>
   </div>
 </div>
-
+</div>
+<!--Left_Master-->
+<div class="left_master" style="margin-left:0%">
+<?php if ($network['left']['network'][$network['left']['id']][0][0][0]['id']) {?>
 <div class="binary-user pull-left" style="width:50%;">
   <div class="level master">
     <div style="width: 200px; margin: 0 auto;">
-      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;margin-left:26%" class="pull-left">
+	<a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['left']['network'][$network['left']['id']][0][0][0]['id']]) ?>">
+      <div style="background-color:orange;width:60px;height:60px;border-radius:30px;text-align:center;" class="pull-left">
        <div style="line-height:60px" class="id" > ID:<?= $network['left']['network'][$network['left']['id']][0][0][0]['id'] ?></div>
-    
-      </div>
-      <div >
+      <div class="info" >
         <div class="username"><?= $network['left']['network'][$network['left']['id']][0][0][0]['username'] ?></div>        
         <div class="name" style="margin-right:-10%"><?= $network['left']['network'][$network['left']['id']][0][0][0]['name'] ? $network['left']['network'][$network['left']['id']][0][0][0]['name'] : 'NO NAME' ?></div>
       </div>
+	  </div>
+	</a>
     </div>
   </div>
 </div>
-
+<?php } else { ?>
 <div class="binary-user pull-left" style="width:50%;">
+<div class="filler-icon" style="font-size: 3em;">
+<a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $id, 'position' => 0]) ?>">
+          <i class="fa fa-user"></i>
+    </a>  
+</div>
+</div>
+<?php } ?>
+</div>
+
+<!--Right_Master-->
+<div class="right_master">
+<?php if ($network['right']['network'][$network['right']['id']][0][0][0]['id']) {?>
+<div class="binary-user pull-left" style="width:50%; ">
   <div class="level master">
     <div style="width: 200px; margin: 0 auto;">
-      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;margin-left:26%" class="pull-left">
-       <div style="line-height:60px" class="id" > ID:<?= $network['right']['network'][$network['right']['id']][0][0][0]['id'] ?></div>
-    
-      </div>
-      <div >
+	<a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['right']['network'][$network['right']['id']][0][0][0]['id']]) ?>">
+      <div style="background-color:orange;width:60px;height:60px;border-radius:30px;text-align:center;" class="pull-left">
+       <div style="line-height:60px" class="id" > ID:<?= $network['right']['network'][$network['right']['id']][0][0][0]['id'] ?></div>   
+      <div class="info">
         <div class="username"><?= $network['right']['network'][$network['right']['id']][0][0][0]['username'] ?></div>        
         <div class="name" style="margin-right:-10%"><?= $network['right']['network'][$network['right']['id']][0][0][0]['name'] ? $network['right']['network'][$network['right']['id']][0][0][0]['name'] : 'NO NAME' ?></div>
       </div>
+	  </div>
+	  </a>
     </div>
   </div>
 </div>
+<?php } else { ?>
+<div class="binary-user pull-left" style="width:50%;margin-left:-1%;">
+<div class="filler-icon" style="font-size: 3em;">
+<a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $id, 'position' => 1]) ?>">
+          <i class="fa fa-user"></i>
+    </a>  
+</div>
+</div>
+<?php } ?>
+</div>
 <!-- LEFT TREE -->
-<section class="pull-left col-md-6">
+<div class="tree">
+<section class="pull-left col-xs-6">
 <?php
 
-  for ($level=0; $level < 3 ; $level++) {
+  for ($level=0; $level < 2 ; $level++) {
 
     if($level == 0) {
       $counter1 = 1;
@@ -183,7 +204,7 @@ $this->title = 'Binary Tree';
       <div class="level level<?= $level ?>">
         <div style="<?= $level != 2 ? 'width: 200px; margin: 0 auto;' : '' ?>">
     <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id']]) ?>">
-          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;margin-left:-5%" class="<?= $level != 2 ? 'pull-left' : '' ?>">
+          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;" class="<?= $level != 2 ? 'pull-left' : '' ?>">
       <div style="line-height:60px" class="id">ID: <?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id'] ?></div>
             <?php /*echo \cebe\gravatar\Gravatar::widget(
                 [
@@ -224,10 +245,10 @@ $this->title = 'Binary Tree';
 
 
 <!-- RIGHT TREE -->
-<section class="pull-left col-md-6">
+<section class="pull-left col-xs-6">
 <?php
 
-  for ($level=0; $level < 3 ; $level++) {
+  for ($level=0; $level < 2 ; $level++) {
 
     if($level == 0) {
       $counter1 = 1;
@@ -236,7 +257,7 @@ $this->title = 'Binary Tree';
       $counter1 = 2;
     }
     else if($level == 3) {
-      $counter1 = 8;
+      $counter1 = 4;
     }
     else {
       $counter1 = $level * $level;
@@ -272,18 +293,9 @@ $this->title = 'Binary Tree';
       <div class="level level<?= $level ?>">
         <div style="<?= $level != 2 ? 'width: 200px; margin: 0 auto;' : '' ?>">
     <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['id']]) ?>">
-          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;margin-left:-5%" class="<?= $level != 2 ? 'pull-left' : '' ?>">
+          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;" class="<?= $level != 2 ? 'pull-left' : '' ?>">
       <div style="line-height:60px" class="id">ID: <?= $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['id'] ?></div>
-            <?php /*echo \cebe\gravatar\Gravatar::widget(
-                [
-                    'email' => $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['email'],
-                    'defaultImage' => '1',
-                    'options' => [
-                        'alt' => '',
-                    ],
-                    'size' => 60,
-                ]
-            );*/ ?>
+            
          <div class="info" style="">
              <div class="username"><?= $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['username'] ?></div>           
                  <div class="name"><?= $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['name'] ? $network['right']['network'][$network['right']['id']][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
@@ -310,3 +322,4 @@ $this->title = 'Binary Tree';
   }
 ?>
 </section>
+</div>
