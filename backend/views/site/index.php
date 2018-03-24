@@ -66,8 +66,21 @@ $this->title = 'Home';
     <div class="info-box">
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Total Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0 ?></span>
+        <div>
+          Earned Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0 ?>
+        </div>
+        <div>
+          Withdraw Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= \app\models\UserWithdrawal::getPrevRequests('ad_clicks') ?>
+        </div>
+        <div>
+          Current Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> 
+          <?php 
+
+              $adCalcTotal = isset($earned['ad_clicks']->value) ? $earned['ad_clicks']->value : 0;
+              echo $adCalcTotal - \app\models\UserWithdrawal::getPrevRequests('ad_clicks');
+
+          ?>
+        </div>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'ad_clicks']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>
@@ -156,9 +169,21 @@ $this->title = 'Home';
     <div class="info-box">
       <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Total Earnings</span>
+        <div>
+          Earned Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['binary']->value) ? $earned['binary']->value : 0 ?>
+        </div>
+        <div>
+          Withdraw Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= \app\models\UserWithdrawal::getPrevRequests('binary') ?>
+        </div>
+        <div>
+          Current Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> 
+          <?php 
 
-        <span class="info-box-number" style="text-align:center;line-height:30px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['binary']->value) ? $earned['binary']->value : 0 ?></span>
+              $binaryCalcTotal = isset($earned['binary']->value) ? $earned['binary']->value : 0;
+              echo $binaryCalcTotal - \app\models\UserWithdrawal::getPrevRequests('binary');
+
+          ?>
+        </div>
         <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
       </div>
     </div>

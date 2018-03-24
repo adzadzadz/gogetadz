@@ -119,7 +119,13 @@ class UserEarnings extends \yii\db\ActiveRecord
         $user_id = $user_id !== null ? $user_id : Yii::$app->user->id;
         $earnings = UserEarnings::findOne(['user_id' => $user_id, 'type' => $type]);
 
-        if ($amount <= 0 || $earnings && $earnings->value <= $amount) {
+        if (!$earnings) {
+            $currentEarning = 0;
+        } else {
+            $currentEarning = $earnings->value;
+        }
+
+        if ($amount <= 0 || $currentEarning >= $amount) {
             Yii::$app->session->setFlash(
                 'danger',
                 'Nothing has changed for your account.'
