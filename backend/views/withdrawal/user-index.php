@@ -1,13 +1,12 @@
 <?php
 /* @var $this yii\web\View */
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
-
 $this->title = 'Withdrawal Requests';
 ?>
 
 <section class="row">
+  
   <div class="col-md-4">
+    
     <?php $form = ActiveForm::begin(); ?>
     
     <?= $form->field($coinsPh, 'value')->textInput() ?>
@@ -17,7 +16,9 @@ $this->title = 'Withdrawal Requests';
     </div>
 
     <?php ActiveForm::end(); ?>
+    
   </div>
+  
 </section>
 
 <section id="requests" class="row">
