@@ -51,25 +51,10 @@ class WithdrawalController extends Controller
     {
         $requests = UserWithdrawal::findAll(['user_id' => Yii::$app->user->id]);
         $earned = \app\models\UserEarnings::calcEarned();
-        $coinsPh = \app\models\CoinsPhAddress::findOne(['user_id' => Yii::$app->user->id]);
-
-        if ($coinsPh == null) {
-            $coinsPh = new \app\models\CoinsPhAddress;
-        }
-
-        if ($coinsPh->load(Yii::$app->request->post()) && $coinsPh->save()) {
-            Yii::$app->session->addFlash('success', 'Coins PH Address has been updated.', $removeAfterAccess = true);
-            // Yii::$app->session->setFlash(
-            //     'success',
-            //     'Coins PH Address has been updated.'
-            // );
-            return $this->redirect('user-index');
-        }
-
+        
         return $this->render('user-index', [
             'requests' => $requests,
-            'totalIncome'   => $earned,
-            'coinsPh'       => $coinsPh
+            'totalIncome'   => $earned
         ]);
     }
 
@@ -116,7 +101,6 @@ class WithdrawalController extends Controller
         UserEarnings::updateEarnings();
         return $this->redirect('/site/index');
     }
-
 
     /**
      * Lists all UserWithdrawal models.
