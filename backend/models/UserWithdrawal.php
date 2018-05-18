@@ -56,6 +56,36 @@ class UserWithdrawal extends \yii\db\ActiveRecord
     }
 
     /**
+     * Fetch the widthrawal requests performed by the user
+     * @param string  $type    Can be ad_clicks, binary, unilevel
+     * @param [type]  $user_id User ID
+     * @return  Float
+     */
+    public static function getPrevRequests($type = "binary", $user_id = null)
+    {
+        $user_id = $user_id != null ? $user_id : Yii::$app->user->id;
+
+        $requests = self::findAll(['user_id' => $user_id, 'type' => $type]);
+
+        $total = 0;
+        foreach ($requests as $request) {
+            $total = $total + $request->value;
+        }
+
+        return $total;
+    }
+
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::classname(), ['user_id' => 'user_id']);
+    }
+
+    public function getCoins()
+    {
+        return $this->hasOne(CoinsPhAddress::classname(), ['user_id' => 'user_id']);   
+    }
+
+    /**
      * @inheritdoc
      */
     public function attributeLabels()
