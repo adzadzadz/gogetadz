@@ -8,6 +8,8 @@ class Gogetadz extends Object
 {
     public $currency;
 
+    public $registrationEarnings;
+
     public $adIncome;
 
     public $currencySymbol = [

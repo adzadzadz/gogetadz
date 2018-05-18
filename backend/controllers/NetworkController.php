@@ -44,6 +44,7 @@ class NetworkController extends Controller
     {
         $id = $id ? $id : Yii::$app->user->id;
         $network = UserNetwork::getBinary($id);
+        // return var_dump($network);
         return $this->render('@backend/views/user/binarytree', [
             'network' => $network,
             'id'    => $id

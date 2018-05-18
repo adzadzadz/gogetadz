@@ -17,6 +17,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class UserWithdrawal extends \yii\db\ActiveRecord
 {
+    const STATUS_INACTIVE = 5;
+    const STATUS_PENDING = 6;
+    const STATUS_SUCCESS = 10;
 
     public function behaviors()
     {
