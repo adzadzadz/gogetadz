@@ -47,7 +47,19 @@ class NetworkController extends Controller
         // return var_dump($network);
         return $this->render('@backend/views/user/binarytree', [
             'network' => $network,
-            'id'    => $id
+            'id'      => $id
+        ]);
+    }
+
+    public function actionUnilevelTree($id = null)
+    {
+        $id = $id ? $id : Yii::$app->user->id;
+        $user = UserNetwork::getUnilevel($id);
+
+        // return print_r($user);
+        return $this->render('@backend/views/user/unileveltree', [
+            'user' => $user,
+            'id'      => $id
         ]);
     }
 }

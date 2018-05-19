@@ -16,6 +16,8 @@ use Yii;
  */
 class UserNetwork extends \yii\db\ActiveRecord
 {
+    public $downlines;
+
     /**
      * @inheritdoc
      */
@@ -43,6 +45,26 @@ class UserNetwork extends \yii\db\ActiveRecord
 
     public static function countUnilevelMembers() {
         return count(UserNetwork::getUnilevelMembers());
+    }
+
+    public static function getUnilevel($id)
+    {
+        $user = User::find()
+            ->joinWith('network')
+            ->where([User::tableName() . '.id' => $id])
+            ->one();
+        $network = [];
+        $user->network->downlines = self::getDownline($id, $position = [0,1], $type = 'sponsor');
+        
+        foreach ($user->network->downlines as $lvl2User) {
+            $lvl2User->network->downlines = self::getDownline($lvl2User->id, $position = [0,1], $type = 'sponsor');
+
+            foreach ($lvl2User->network->downlines as $lvl3User) {
+                $lvl3User->network->downlines = self::getDownline($lvl3User->id, $position = [0,1], $type = 'sponsor');
+            }
+        }
+        
+        return $user;
     }
 
     public static function getBinary($id, $maxLevels = 10)
@@ -80,6 +102,9 @@ class UserNetwork extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * Binary tree fetcher by position
+     */
     public static function getTreeByPosition($id, $position = 'left', $maxLevels = 3)
     {
         $user = User::find()
@@ -182,8 +207,8 @@ class UserNetwork extends \yii\db\ActiveRecord
 
     /**
      * User placement for binary and sponsor for unilevel
-     * @param  integer $id user id
-     * @param  string $type binary("placement") or unilevel("sponsor")
+     * @integer $id user id
+     * @string $type binary("placement") or unilevel("sponsor")
      * @return Object   app\models\UserNetwork
      */
     public static function getDownline($id, $position, $type = 'placement')
