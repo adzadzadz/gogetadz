@@ -38,9 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 
                 <h4>Account Information</h4>
 
-                <label>Sponsor:</label>
-				<?= $model->sponsor ?>
-                <br>
+                <?= $form->field($model, 'sponsor') ?>
                 
                 <?= $form->field($model, 'placement') ?>
                 

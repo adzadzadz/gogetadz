@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Binary Tree';
+$this->title = 'Table of Exit';
 
 ?>
 
@@ -116,7 +116,7 @@ $this->title = 'Binary Tree';
   </div>
 </div>
 <?php } else { ?>
-<div class="binary-user pull-left" style="width:50%;">
+<div class="binary-user pull-left" style="width:50%;margin-left:2%">
 <div class="filler-icon" style="font-size: 3em;">
 <a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $id, 'position' => 0]) ?>">
           <i class="fa fa-user"></i>
@@ -145,7 +145,7 @@ $this->title = 'Binary Tree';
   </div>
 </div>
 <?php } else { ?>
-<div class="binary-user pull-left" style="width:50%;margin-left:-1%;">
+<div class="binary-user pull-left" style="width:50%;margin-right:-2%;">
 <div class="filler-icon" style="font-size: 3em;">
 <a class="binary-link" href="<?= Url::to(['/user/register', 'id' => $id, 'position' => 1]) ?>">
           <i class="fa fa-user"></i>
@@ -168,7 +168,7 @@ $this->title = 'Binary Tree';
       $counter1 = 2;
     }
     else if($level == 3) {
-      $counter1 = 8;
+      $counter1 = 4;
     }
     else {
       $counter1 = $level * $level;
@@ -206,16 +206,7 @@ $this->title = 'Binary Tree';
     <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id']]) ?>">
           <div style="background-color:orange;width:60px;height:60px;border-radius:33px;" class="<?= $level != 2 ? 'pull-left' : '' ?>">
       <div style="line-height:60px" class="id">ID: <?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id'] ?></div>
-            <?php /*echo \cebe\gravatar\Gravatar::widget(
-                [
-                    'email' => $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['email'],
-                    'defaultImage' => '1',
-                    'options' => [
-                        'alt' => '',
-                    ],
-                    'size' => 60,
-                ]
-            );*/ ?>
+            
          <div class="info" style="">
              <div class="username"><?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['username'] ?></div>           
                  <div class="name"><?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['name'] ? $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
