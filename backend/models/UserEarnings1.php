@@ -79,7 +79,7 @@ class UserEarnings extends \yii\db\ActiveRecord
         return round(
             Yii::$app->appConfig->registrationEarnings + 
             UserEarnings::calcDirectReferrals() + 
-            (min($network['left']['count'], $network['right']['count']) * 5)
+            (min($network['left']['count'], $network['right']['count']) * 1)
         , 2);
     }
 
@@ -93,7 +93,7 @@ class UserEarnings extends \yii\db\ActiveRecord
 
     public static function calcDirectReferrals()
     {
-        return UserNetwork::countUnilevelMembers() * 20;
+        return UserNetwork::countUnilevelMembers() * 4;
     }
 
     public static function getEarnings()
