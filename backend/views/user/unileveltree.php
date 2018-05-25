@@ -7,13 +7,21 @@ $this->title = 'Unilevel Tree';
 ?>
 
 <style>
-.user-data {
+.lvl0 {
+  width: 100%;
+  overflow: auto;
   background: #bab;
+}
+.lvl1 {background: #cac;}
+.lvl2 {background: #787;}
+.lvl3 {background: #989;}
+.user-data {
+  float: left;
   display: inline-block;
 }
 .item {
-  width: 70px;
-  min-height: 70px;
+  width: 150px;
+  min-height: 150px;
   background: #faf;
   margin: 4px; 
 }
@@ -25,13 +33,15 @@ $this->title = 'Unilevel Tree';
 
 <div class="user-data lvl0">
   <div class="item">
-    <0: <?= $id ?>>
+    User ID: <?= $user->id ?> <br>
+    Name: <?= $user->profile->name ?>
   </div>
 
   <?php foreach ($user->network->downlines as $lvl1) { ?>
     <div class="user-data lvl1">
       <div class="item">
-        <<?= $id ?>: <?= $lvl1->id ?>>
+        User ID: <?= $lvl1->id ?> <br>
+        Name: <?= $lvl1->profile->name ?>
       </div>
     
 
@@ -39,15 +49,29 @@ $this->title = 'Unilevel Tree';
 
       <div class="user-data lvl2">
         <div class="item">
-          <<?= $lvl1->id ?>: <?= $lvl2->id ?>>
+          User ID: <?= $lvl2->id ?> <br>
+          Name: <?= $lvl2->profile->name ?>
         </div>
-      </div>
-    </div>
-<!-- Foreach Closing Tags -->
+
+        <?php foreach ($lvl2->network->downlines as $lvl3) { ?>
+
+        <div class="user-data lvl3">
+          <div class="item">
+            User ID: <?= $lvl3->id ?> <br>
+            Name: <?= $lvl3->profile->name ?>
+          </div>
+        </div>
+
 <?php
-        
+        }
+?>
+        </div> <!-- .user-data.lvl2 -->
+<?php
     }
+?>
+    </div> <!-- .user-data.lvl1 -->
+<?php
 }
 ?>
 
-</div>
+</div> <!-- .user-data.lvl0 -->
