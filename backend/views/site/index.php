@@ -114,6 +114,33 @@ $this->title = 'Home';
    
 </section>
 </div>
+
+<div class="block2" style="float:left">
+<section>  
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Leverage Bonus</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><??></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Earnings</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <??></span>
+        <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
+      </div>
+    </div>
+  </div>
+   
+</section>
+</div>
+
 <div class="block3"style="float:left">
 <section>  
   <div class="col-md-3 col-sm-6">
@@ -159,7 +186,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 2; ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 1; ?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -190,6 +217,109 @@ $this->title = 'Home';
   </div>
 </section>
 </div>
+
+<div class="block4"style="float:left"> 
+ <section> <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text"></span>
+        <span class="info-box-text">Table of Exit<br>Binary</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px">
+          <? ?>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Earnings</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <? ?></span>
+        <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
+      <div class="info-box-content">
+        <div>
+          Earned Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['binary']->value) ? $earned['binary']->value : 0 ?>
+        </div>
+        <div>
+          Withdraw Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= \app\models\UserWithdrawal::getPrevRequests('binary') ?>
+        </div>
+        <div>
+          Current Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> 
+          <?php 
+
+              $binaryCalcTotal = isset($earned['binary']->value) ? $earned['binary']->value : 0;
+              echo $binaryCalcTotal - \app\models\UserWithdrawal::getPrevRequests('binary');
+
+          ?>
+        </div>
+        <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="block4"style="float:left"> 
+ <section> <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text"></span>
+        <span class="info-box-text">Table of Exit<br>MOnoline</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px">
+          <? ?>
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
+      <div class="info-box-content">
+        <span class="info-box-text">Earnings</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <? ?></span>
+        <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-3 col-sm-6">
+    <div class="info-box">
+      <span class="info-box-icon bg-green"><i class="fa fa-usd"></i></span>
+      <div class="info-box-content">
+        <div>
+          Earned Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= isset($earned['binary']->value) ? $earned['binary']->value : 0 ?>
+        </div>
+        <div>
+          Withdraw Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= \app\models\UserWithdrawal::getPrevRequests('binary') ?>
+        </div>
+        <div>
+          Current Total: <?= Yii::$app->appConfig->getCurrencySymbol() ?> 
+          <?php 
+
+              $binaryCalcTotal = isset($earned['binary']->value) ? $earned['binary']->value : 0;
+              echo $binaryCalcTotal - \app\models\UserWithdrawal::getPrevRequests('binary');
+
+          ?>
+        </div>
+        <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
 <div style="margin-top:2%;float:left;margin-left:4%;width:1000%;"><h4>Unilevel Statement</h4></div>
 <div class="block3" style="float:left">
 <section>  

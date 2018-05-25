@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Binary Tree';
+$this->title = 'Table of Exit';
 
 ?>
 
@@ -168,7 +168,7 @@ $this->title = 'Binary Tree';
       $counter1 = 2;
     }
     else if($level == 3) {
-      $counter1 = 8;
+      $counter1 = 4;
     }
     else {
       $counter1 = $level * $level;
