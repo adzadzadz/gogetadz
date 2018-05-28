@@ -94,6 +94,12 @@ $menuItems[] = [
 ];
 
 $menuItems[] = [
+    'url' => [ Url::to(["/network/unilevel-tree"]) ],
+    'icon' => 'users',
+    'label' => 'Unilevel Tree',
+];
+
+$menuItems[] = [
     'url' => [ Url::to(["/network/table of exit-binary"]) ],
     'icon' => 'users',
     'label' => 'Table of Exit binary',
