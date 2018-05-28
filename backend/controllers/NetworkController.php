@@ -62,4 +62,14 @@ class NetworkController extends Controller
             'id'      => $id
         ]);
     }
+
+    public function actionUnilevelStatement($id = null)
+    {
+        $id = $id ? $id : Yii::$app->user->id;
+        $network = UserNetwork::getUnilevelStatement($id);
+
+        return $this->render('@backend/views/user/unilevelstatement', [
+            'network' => $network
+        ]);
+    }
 }

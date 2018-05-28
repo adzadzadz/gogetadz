@@ -47,6 +47,35 @@ class UserNetwork extends \yii\db\ActiveRecord
         return count(UserNetwork::getUnilevelMembers());
     }
 
+    public static function getUnilevelStatement($id, $levels = 15)
+    {
+        $user_id = [$id];
+        $user = User::find()
+            ->joinWIth('network')
+            ->where([User::tableName() . '.id' => $id])
+            ->one();
+        $network = [];
+
+        for ($level=0 + 1; $level < $levels + 1; $level++) { 
+            
+            $dl_list = [];
+            foreach ($user_id as $eachID) {
+                $dl_list[] = self::getDownline($eachID, $position = [0,1], $type = 'sponsor');
+
+            }
+
+            $user_id = [];
+            foreach ($dl_list as $dl) {
+                foreach ($dl as $each) {
+                    $network[$level][] = $each;
+                    $user_id[] = $each->id;
+                }
+            }                
+        }
+
+        return $network;
+    }
+
     public static function getUnilevel($id)
     {
         $user = User::find()

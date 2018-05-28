@@ -29,7 +29,6 @@ class UserEarnings extends \yii\db\ActiveRecord
         ];
     }
 
-
     /**
      * @inheritdoc
      */

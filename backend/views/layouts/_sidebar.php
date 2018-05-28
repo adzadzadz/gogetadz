@@ -94,9 +94,20 @@ $menuItems[] = [
 ];
 
 $menuItems[] = [
-    'url' => [ Url::to(["/network/unilevel-tree"]) ],
     'icon' => 'users',
-    'label' => 'Unilevel Tree',
+    'label' => 'Unilevel',
+    'items' => [
+        [
+            'url' => [ Url::to(["/network/unilevel-tree"]) ],
+            'icon' => 'users',
+            'label' => 'Tree',
+        ],
+        [
+            'url' => [ Url::to(["/network/unilevel-statement"]) ],
+            'icon' => 'users',
+            'label' => 'Statement',
+        ]
+    ]
 ];
 
 $menuItems[] = [
