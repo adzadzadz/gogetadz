@@ -54,12 +54,13 @@ class NetworkController extends Controller
     public function actionUnilevelTree($id = null)
     {
         $id = $id ? $id : Yii::$app->user->id;
-        $user = UserNetwork::getUnilevel($id);
+        $levels = 4;
+        $network = UserNetwork::getUnilevelStatement($id, $levels);
 
-        // return print_r($user);
         return $this->render('@backend/views/user/unileveltree', [
-            'user' => $user,
-            'id'      => $id
+            'network' => $network,
+            'id'      => $id,
+            'levels' => $levels
         ]);
     }
 

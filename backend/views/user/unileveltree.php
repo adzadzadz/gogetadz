@@ -7,71 +7,73 @@ $this->title = 'Unilevel Tree';
 ?>
 
 <style>
-.lvl0 {
-  width: 100%;
-  overflow: auto;
-  background: #bab;
-}
-.lvl1 {background: #cac;}
-.lvl2 {background: #787;}
-.lvl3 {background: #989;}
-.user-data {
-  float: left;
-  display: inline-block;
-}
-.item {
-  width: 150px;
-  min-height: 150px;
-  background: #faf;
-  margin: 4px; 
-}
-.branch {
-  display: inline-block;
-  background: #aba;
-}
+  .container-fluid {
+    background: #e5e5e5;
+  }
+  .group {
+    /* height: 200px; */
+    width: 90%;
+    padding: 8px;
+    overflow: auto;
+    /* background: #a9a; */
+  }
+  .tree-user {
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    background: #787;
+    margin: 5px;
+  }
+  .level-label {
+    width: 50px;
+    /* font-weight: bold; */
+    background: #252D32;
+    color: #e5e5e5;
+  }
+  .table {
+    width: 100%;
+  }
 </style>
 
-<div class="user-data lvl0">
-  <div class="item">
-    User ID: <?= $user->id ?> <br>
-    Name: <?= $user->profile->name ?>
-  </div>
-
-  <?php foreach ($user->network->downlines as $lvl1) { ?>
-    <div class="user-data lvl1">
-      <div class="item">
-        User ID: <?= $lvl1->id ?> <br>
-        Name: <?= $lvl1->profile->name ?>
-      </div>
-    
-
-      <?php foreach ($lvl1->network->downlines as $lvl2) { ?>
-
-      <div class="user-data lvl2">
-        <div class="item">
-          User ID: <?= $lvl2->id ?> <br>
-          Name: <?= $lvl2->profile->name ?>
+<div class="container-fluid">
+  <table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <td>Level</td>
+      <td>Members</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>
+        <div class="tree-user">
+          <?= Yii::$app->user->identity->username ?>
+          <?= Yii::$app->user->identity->profile->name ?>
+          <?= YIi::$app->user->identity->network->sponsor ?>
         </div>
+      </td>
+    </tr>
+    <?php foreach ($network as $level => $group): ?>
+      <tr>
+        <td><?= $level ?></td>
+        <td>
+          <div class="group">
+          <?php foreach ($group as $user): ?>
 
-        <?php foreach ($lvl2->network->downlines as $lvl3) { ?>
+            <div class="tree-user <?= $user->id ?>">
+              <div><?= $user->username ?></div>
+              <div><?= $user->profile->name ?></div>
+              <div><?= $user->network->sponsor ?></div>
+              <div><?= $user->id ?></div>
+            </div>
 
-        <div class="user-data lvl3">
-          <div class="item">
-            User ID: <?= $lvl3->id ?> <br>
-            Name: <?= $lvl3->profile->name ?>
+          <?php endforeach; ?>
           </div>
-        </div>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+  </table>
 
-<?php
-        }
-?>
-        </div> <!-- .user-data.lvl2 -->
-<?php
-    }
-?>
-    </div> <!-- .user-data.lvl1 -->
-<?php
-}
-?>
-
-</div> <!-- .user-data.lvl0 -->
+</div>

@@ -151,4 +151,9 @@ class User extends BaseUser
         return $this->hasOne(Profile::classname(), ['user_id' => 'id']);
     }
 
+    public function getPv()
+    {
+        return $this->hasMany(UserPv::classname(), ['user_id' => 'id']);
+    }
+
 }

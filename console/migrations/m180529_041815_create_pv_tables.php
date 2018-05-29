@@ -1,30 +1,28 @@
 <?php
+
 use yii\db\Migration;
+
 /**
- * Handles the creation of table `coins_ph_address`.
+ * Class m180529_041815_create_pv_tables
  */
-class m180215_121614_create_coins_ph_address_table extends Migration
+class m180529_041815_create_pv_tables extends Migration
 {
-    /**
-     * @inheritdoc
-     */
+
+    // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('{{%coins_ph_address}}', [
+        $this->createTable('{{%user_pv}}', [
             'id' => $this->primaryKey(),
             'user_id' => $this->integer(),
-            'tag' => $this->string(),
             'value' => $this->string(),
             'status'  => $this->smallInteger(),
             'created_at' => $this->integer()
         ]);
     }
-    
-    /**
-     * @inheritdoc
-     */
+
     public function down()
     {
-        $this->dropTable('{{%coins_ph_address}}');
+        $this->dropTable('{{%user_pv}}');
     }
+
 }

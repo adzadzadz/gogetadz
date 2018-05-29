@@ -51,7 +51,7 @@ class UserNetwork extends \yii\db\ActiveRecord
     {
         $user_id = [$id];
         $user = User::find()
-            ->joinWIth('network')
+            ->joinWith(['network', 'pv'])
             ->where([User::tableName() . '.id' => $id])
             ->one();
         $network = [];
@@ -61,7 +61,6 @@ class UserNetwork extends \yii\db\ActiveRecord
             $dl_list = [];
             foreach ($user_id as $eachID) {
                 $dl_list[] = self::getDownline($eachID, $position = [0,1], $type = 'sponsor');
-
             }
 
             $user_id = [];
@@ -74,26 +73,6 @@ class UserNetwork extends \yii\db\ActiveRecord
         }
 
         return $network;
-    }
-
-    public static function getUnilevel($id)
-    {
-        $user = User::find()
-            ->joinWith('network')
-            ->where([User::tableName() . '.id' => $id])
-            ->one();
-        $network = [];
-        $user->network->downlines = self::getDownline($id, $position = [0,1], $type = 'sponsor');
-        
-        foreach ($user->network->downlines as $lvl2User) {
-            $lvl2User->network->downlines = self::getDownline($lvl2User->id, $position = [0,1], $type = 'sponsor');
-
-            foreach ($lvl2User->network->downlines as $lvl3User) {
-                $lvl3User->network->downlines = self::getDownline($lvl3User->id, $position = [0,1], $type = 'sponsor');
-            }
-        }
-        
-        return $user;
     }
 
     public static function getBinary($id, $maxLevels = 10)

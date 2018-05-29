@@ -82,6 +82,20 @@ $this->params['breadcrumbs'][] = $this->title;
           },
         ],
         [
+            'header' => Yii::t('user', 'Point Value'),
+            'value' => function ($model) {
+                return Html::a(Yii::t('user', 'Add Points'), ['/user-pv/create'], [
+                    'class' => 'btn btn-xs btn-success btn-block',
+                    'data-method' => 'post',
+                    'data-params' => [
+                        'UserPv[user_id]' => $model->id
+                    ]
+                ]);
+            },
+            'format' => 'raw',
+            // 'visible' => Yii::$app->getModule('user')->enableConfirmation,
+        ],
+        [
             'header' => Yii::t('user', 'Confirmation'),
             'value' => function ($model) {
                 if ($model->isConfirmed) {
