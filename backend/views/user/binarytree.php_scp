@@ -1,0 +1,229 @@
+<?php 
+
+use yii\helpers\Url;
+
+$this->title = 'Table of Exit';
+
+?>
+
+<style>
+  div {
+    margin: 0;
+    padding: 0;
+  }
+  .binary-user {
+    /*display: inline-block;*/
+    padding: 5px;
+    /*margin-bottom: 10px;*/
+    text-align: center;
+    min-height: 100px;
+  }
+  .id {
+    font-weight: bold;
+  }
+ .level {
+    padding: 15px;
+    height: 100%;
+	margin-left:45%;
+	margin-right:38%;
+  }
+  @media(max-width:700px){
+   .level{
+	margin-left:45%;
+	margin-right:33%;
+  }	
+  }
+  .level0 {
+    background: ;
+	margin-left:47%;
+	margin-right:48%;
+  }
+  @media(max-width:700px){
+   .level0{
+	margin-right:50%;   
+	margin-left:50%;
+  }	
+  }
+  .level0:hover {
+    color:red;
+  }
+  .level1 {
+    background: ;
+	margin-right:55%;
+	margin-left:47%;
+  }
+  @media(max-width:700px){
+   .level1{
+    margin-right:44%;  
+	margin-left:50%;
+  }	
+  }
+  .level1:hover {
+    color:red;
+  }
+  .gray {
+    background: ;
+  }
+  a.binary-link {
+    color: #000;
+  }
+  a.binary-link:hover {
+    /* font-size: 1.2em; */
+	background-color: ;
+  }
+  .info{
+	  opacity:.01;
+	  margin-top:-38%;
+	  border-radius:30px;
+	  width:100px;height:60px;background-color:white;margin-left:-30%
+	  
+  }
+  .info:hover{
+	  opacity:1;
+	  margin-top:-38%;
+	  border-radius:5px;
+	  width:100px;height:40px;background-color:white;margin-left:-30%
+  }
+  .level master
+</style>
+<h4>Table Count:  <?php
+$table_1 = \app\models\UserEarnings::findOne(['user_id' => $id]);
+$table_2 = \app\models\UserEarnings::findOne(['user_id' => $id]);
+if ($table_1 !== null) {
+  echo $table_1->table_1;
+} else if ($table_2 !== null){
+	echo $table_1->table_1;
+} else {
+  echo "0";
+}
+
+?></h4>
+<div class="main_master">
+<div class="binary-user" style="width:100%;margin-left:2%;">
+  <div class="level master">
+    <div style="width: 200px; margin: 0 auto;">
+      <div style="background-color:lightgreen;width:60px;height:60px;border-radius:30px;text-align:center;" class="pull-left">
+       <div style="line-height:60px" class="id" > ID:<?= $network['master'][$id][0][0][0]['id'] ?></div>
+    
+      </div>
+      <div >
+        <div class="username"><?= $network['master'][$id][0][0][0]['username'] ?></div>        
+        <div class="name" style="margin-right:-10%"><?= $network['master'][$id][0][0][0]['name'] ?></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!--Left_Master-->
+<div class="left_master" style="margin-left:3.5%">
+<?php if ($network['left']['network'][$network['left']['id']][0][0][0]['id']) {?>
+<div class="binary-user pull-left" style="width:100%;">
+  <div class="level master">
+    <div style="width: 200px; margin: 0 auto;">
+	<a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['left']['network'][$network['left']['id']][0][0][0]['id']]) ?>">
+      <div style="background-color:orange;width:60px;height:60px;border-radius:30px;text-align:center;" class="pull-left">
+       <div style="line-height:60px" class="id" > ID:<?= $network['left']['network'][$network['left']['id']][0][0][0]['id'] ?></div>
+      <div class="info" >
+        <div class="username"><?= $network['left']['network'][$network['left']['id']][0][0][0]['username'] ?></div>        
+        <div class="name" style="margin-right:-10%"><?= $network['left']['network'][$network['left']['id']][0][0][0]['name'] ? $network['left']['network'][$network['left']['id']][0][0][0]['name'] : 'NO NAME' ?></div>
+      </div>
+	  </div>
+	</a>
+    </div>
+  </div>
+</div>
+<?php } else { ?>
+<div class="binary-user pull-left" style="width:100%;margin-left:-.5%">
+<div class="filler-icon" style="font-size: 3em;">
+<a class="binary-link" href="#">
+          <i class="fa fa-user"></i>
+    </a>  
+</div>
+</div>
+<?php } ?>
+</div>
+
+<!--Right_Master-->
+
+<!-- LEFT TREE -->
+<div class="tree">
+<section class="pull-left col-xs-6">
+<?php
+
+  for ($level=0; $level < 2 ; $level++) {
+
+    if($level == 0) {
+      $counter1 = 1;
+    }
+    else if($level == 1) {
+      $counter1 = 1;
+    }
+    else if($level == 2) {
+      $counter1 = 1;
+    }
+    else {
+      $counter1 = $level * $level;
+    }
+
+    $makegroup = -1;
+
+    echo '<div class="clearfix">';
+
+    for ($group=0; $group < $counter1; $group++) { 
+      $prevgroup = $group;
+
+      for ($position=0; $position < 1; $position++) {
+
+        $makegroup = $makegroup + 1;
+?>
+
+<?php if($network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id'] == null): ?>
+  <div class="binary-user pull-left" style="width:100%;margin-left:52%;">
+    
+      <div class="level gray ?>">
+        <div class="filler-icon" style="font-size: 3em;">
+    <a class="binary-link" href="#">
+          <i class="fa fa-user"></i>
+    </a>   
+        </div>
+      </div>
+    
+  </div>
+<?php else: ?>
+  <div class="binary-user pull-left" style="width:100%;margin-left:50%;">
+    
+      <div class="level level<?= $level ?>">
+        <div style="<?= $level != 2 ? 'width: 100%; margin: 0 auto;' : '' ?>;width:100%;margin-left:55%;">
+    <a class="binary-link" href="<?= Url::to(['/network/binary-tree', 'id' => $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id']]) ?>">
+          <div style="background-color:orange;width:60px;height:60px;border-radius:33px;" class="<?= $level != 2 ? 'pull-left' : '' ?>">
+      <div style="line-height:60px" class="id">ID: <?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['id'] ?></div>
+            
+         <div class="info" style="">
+             <div class="username"><?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['username'] ?></div>           
+                 <div class="name"><?= $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['name'] ? $network['left']['network'][$network['left']['id']][$level + 1][$group][$position]['name'] : 'NO NAME' ?></div>
+           </div>
+
+             </div>
+           
+       </a>
+          <div>           
+          </div>
+        </div>
+      </div>
+   
+  </div>
+<?php endif ?>
+
+<?php
+      }
+
+    }
+
+    echo '</div>';
+
+  }
+?>
+</section>
+<!-- RIGHT TREE -->
+
+</div>

@@ -61,20 +61,16 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $id = Yii::$app->user->id;
-		
-        $query = Yii::$app->user->id;
+        
         $userAds = new \app\models\UserAdvertisement;
         $totals = $userAds->getTotals();
         // $binaryStatementEarned = \app\models\UserEarnings::calcBinaryEarned();
         $directReferrals = \app\models\UserEarnings::calcDirectReferrals();
         $directReferralsCount = \app\models\UserNetwork::countUnilevelMembers();
-        $network = \app\models\UserNetwork::getBinary($id, 1);
+        $network = \app\models\UserNetwork::getBinary($id, 4);
         $earned = \app\models\UserEarnings::getEarnings();
         $table_count = \app\models\UserEarnings::findOne(['user_id' => $id]);
-		$package = \app\models\UserNetwork::findOne(['user_id' => $id]);
-		$dlpackage = \app\models\UserNetwork::find()->where(['package' => 1]);
-        $member_count1 = \app\models\UserNetwork::find()->where(['package' => 1])->count();
-		$member_count2 = \app\models\UserNetwork::find()->where(['package' => 2])->count();
+        $member_count = \app\models\User::find()->count();
         
         // return var_dump($earned['ad_clicks']);
 
@@ -84,11 +80,8 @@ class SiteController extends Controller
             'directReferralsCount' => $directReferralsCount,
             'network' => $network,
             'earned' => $earned,
-            'table_count' => $table_count,          
-			'member_count1' => $member_count1,
-			'member_count2' => $member_count2,
-			'package' => $package,
-			'dlpackage' =>$dlpackage,
+            'table_count' => $table_count,
+            'member_count' => $member_count,
         ]);
     }
 

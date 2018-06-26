@@ -45,7 +45,7 @@ class UserNetwork extends \yii\db\ActiveRecord
         return count(UserNetwork::getUnilevelMembers());
     }
 
-    public static function getBinary($id, $maxLevels = 1)
+    public static function getBinary($id, $maxLevels = 2)
     {
         $user = User::find()
             ->joinWith('network')
@@ -80,7 +80,7 @@ class UserNetwork extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function getTreeByPosition($id, $position = 'left', $maxLevels = 3)
+    public static function getTreeByPosition($id, $position = 'left', $maxLevels = 2)
     {
         $user = User::find()
             ->joinWith('network')

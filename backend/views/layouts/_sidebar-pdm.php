@@ -67,7 +67,11 @@ if (\Yii::$app->user->identity->isAdmin) {
                 'icon' => 'user',
                 'label' => 'User',
             ],
-            
+            [
+                'url' => [ Url::to(['/advertisement']) ],
+                'icon' => 'clipboard',
+                'label' => 'Advertisements',
+            ],
             [
                 'url' => [ Url::to(['/codes']) ],
                 'icon' => 'code',
@@ -86,7 +90,31 @@ if (\Yii::$app->user->identity->isAdmin) {
 $menuItems[] = [
     'url' => [ Url::to(["/network/binary-tree"]) ],
     'icon' => 'users',
-    'label' => 'Genealogy',
+    'label' => 'Binary Tree',
+];
+
+$menuItems[] = [
+    'url' => [ Url::to(["/network/unilevel"]) ],
+    'icon' => 'users',
+    'label' => 'Unilevel',
+];
+
+$menuItems[] = [
+    'url' => [ Url::to(["/network/table of exit-binary"]) ],
+    'icon' => 'users',
+    'label' => 'Table of Exit binary',
+];
+
+$menuItems[] = [
+    'url' => [ Url::to(["/network/table of exit-monoline"]) ],
+    'icon' => 'users',
+    'label' => 'Table of Exit monoline',
+];
+
+$menuItems[] = [
+    'url' => [ Url::to(["/site/click-ads"]) ],
+    'icon' => 'clipboard',
+    'label' => 'Click Ads',
 ];
 
 $menuItems[] = [
@@ -94,6 +122,8 @@ $menuItems[] = [
     'icon' => 'credit-card',
     'label' => 'Withdraw',
 ];
+
+
 
 $menuItems[] = [
     'icon' => 'sign-out',

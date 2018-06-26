@@ -34,6 +34,8 @@ $this->title = 'Home';
 }
 
 </style>
+<section style="font:bold; font-size:20px;background-color: #e6e6e6;padding:5px;"><span>Total Current Members:<?= $member_count ?></span></section><br>
+
 <section id="update-earned-totals">
   <a href="<?= \yii\helpers\Url::toRoute(['/withdrawal/update-earnings']) ?>"><button class="btn btn-primary btn-lg">UPDATE EARNINGS</button></a>
 </section>
@@ -47,8 +49,9 @@ $this->title = 'Home';
     <div class="info-box">
       <span class="info-box-icon bg-blue"><i class="fa fa-list-ol"></i></span>
       <div class="info-box-content">
-        <span class="info-box-text">Leverage Bonus</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><??></span>
+        <span class="info-box-text">Leverage</span>
+        <span class="info-box-number" style="text-align:center;line-height:40px">
+          <?= Yii::$app->appConfig->getCurrencySymbol() ?><?= $member_count * 50 ?></span>
       </div>
     </div>
   </div>
@@ -58,7 +61,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <? ?> </span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= $member_count *50/10 /$member_count ?> </span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -100,8 +103,18 @@ $this->title = 'Home';
       <div class="info-box-content">
         <span class="info-box-text"></span>
         <span class="info-box-text">Table 1</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px">
-          <?= min($network['left']['count'], $network['right']['count']) ?>
+        <span class="info-box-number" style="text-align:center;line-height:20px; font-size: 18px;">
+
+           <?php
+
+if ($network['left']['count'] + $network['right']['count'] < 6) {
+  echo $network['left']['count'] + $network['right']['count'];
+} else {
+  echo "Exit<br>Congratulations" ;
+}
+
+?>
+          
         </span>
       </div>
     </div>
@@ -112,7 +125,17 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"> <?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= min($network['left']['count'], $network['right']['count']) * 1; ?></span>
+        <span class="info-box-number" style="text-align:center;line-height:20px; font-size: 18px;"><?= Yii::$app->appConfig->getCurrencySymbol() ?> 
+         
+          <?php
+
+if ($network['left']['count'] + $network['right']['count'] == 6) {
+  echo "10";
+} else {
+  echo "0" ;
+}
+
+?></span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
@@ -137,7 +160,68 @@ $this->title = 'Home';
 
           ?>
         </div>
-        <a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#demo, #withdrawal {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top:0px;
+  background-color: #e6e6e6;
+  
+  padding:1.5px 20px 1.5px;
+}
+
+</style>
+</head>
+<body >
+
+<p id="demo"></p>
+<a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" >
+<p id="withdrawal">withdrawal</p></a>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("June 7, 2018 12:00:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+    
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    var withdrawal = document.getElementById("withdrawal");
+    // Output the result in an element with id="demo"
+    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+    
+    // If the count down is over, write some text 
+    if (distance < 0) {
+        clearInterval(x);
+		document.getElementById("demo").style.display = "none";
+		withdrawal.style.display = "block";
+        
+	}else {
+        withdrawal.style.display = "none";
+    } 
+    
+}, 1000);
+</script>
+
+</body>
+</html>
+		
+        <!--<a href="#" class="btn btn-sm btn-default btn-block">Widthraw</a>
+		<a href="<?= \yii\helpers\Url::to(['/withdrawal/request', 'type' => 'binary']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>
   </div>

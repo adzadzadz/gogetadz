@@ -98,7 +98,7 @@ class WithdrawalController extends Controller
 
         $total = $earned - UserWithdrawal::getPrevRequests($type);
         // Set earnings
-        if ($total>10) {
+        if ($total>200) {
             // Request withdrawal
             $withdrawal = new UserWithdrawal;
             $withdrawal->type = $type;
@@ -109,7 +109,7 @@ class WithdrawalController extends Controller
         }
 		else {
                
-				return 'you need a minimum of $10 to withdraw...';
+				return 'you need a minimum of Php 200 to withdraw...';
 		}
 
         return $this->redirect('user-index');

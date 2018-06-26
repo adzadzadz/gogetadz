@@ -14,7 +14,6 @@ $this->title = 'Withdrawal Requests';
     
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
-		<a style="padding:10px;background-color: #e6e6e6;font:bold; " href="https://coins.ph/m/join/n7kcyu">Get your coins.ph wallet address here.</a>
     </div>
 
     <?php ActiveForm::end(); ?>

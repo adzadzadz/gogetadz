@@ -41,10 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <label>Sponsor:</label>
 				<?= $model->sponsor ?>
                 <br>
-                
-                <?= $form->field($model, 'placement') ?>
-                
-                <?= $form->field($model, 'position')->dropDownList([0 => 'left', 1 => 'right'], []); ?>
+				
 
                 <?= $form->field($model, 'code') ?>
                 
@@ -55,7 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'username') ?>
 
                 <?php if ($module->enableGeneratingPassword == false): ?>
-                    <?= $form->field($model, 'password')->passwordInput() ?>
+                   
+				<?= $form->field($model, 'password')->passwordInput() ?>
+					
                 <?php endif ?>
 
                 <?= Html::submitButton(Yii::t('user', 'Sign up'), ['class' => 'btn btn-primary btn-block']) ?>

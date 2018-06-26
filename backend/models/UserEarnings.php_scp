@@ -77,101 +77,62 @@ class UserEarnings extends \yii\db\ActiveRecord
     {
         $id = Yii::$app->user->id;
         $table_count= \app\models\UserEarnings::findOne(['user_id' => $id]);
-        
+		/*$table_2= \app\models\UserEarnings::findOne(['user_id' => $id]);*/
         $earned_monoline = \app\models\UserEarnings::findOne([ 'user_id' => $id,'type' => 'monoline']);
         $network = \app\models\UserNetwork::getBinary(Yii::$app->user->id);
-		$member_count1 = \app\models\UserNetwork::find()->where(['package' => 1])->count();
-		$member_count2 = \app\models\UserNetwork::find()->where(['package' => 2])->count();
-		$table=1;  
-	   
-   	   if ($network['left']['count'] + $network['right']['count'] == null && $table_count == null){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-           (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) 
-			,2
-         );
-        }else if ($network['left']['count'] + $network['right']['count'] == null && $table_count->table == null && $table_count->leverage == 1){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-           (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) 
-			,2
-         );
-        }else if ($network['left']['count'] + $network['right']['count'] == null && $table_count->table == 1 && $table_count->leverage == 1){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-			$table * 10 +
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) + 5
-			,2
-         );
-        }else if ($network['left']['count'] + $network['right']['count'] == null && $table_count->table == 0 && $table_count->leverage ==0){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			,2
-        );
-        }else if ($network['left']['count'] + $network['right']['count'] < 6 && $table_count == null){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			,2
-        );
-        }else if ($network['left']['count'] + $network['right']['count'] < 6 && $table_count ->table == 0){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-		 (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-		 ,2
-        );
-        }
-		else if ($network['left']['count'] + $network['right']['count'] < 6 && $table_count->table == 1){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-           (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) 
-			,2
-        );
-        }else if ($network['left']['count'] + $network['right']['count'] == 6 &&  $table_count->table == 0 ){
-			return round(            
-				UserEarnings::calcDirectReferrals() + 
-				$table * 10 +
-				(($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-				, 2
-			);
-		}else if ($network['left']['count'] + $network['right']['count'] == 6 && $table_count->table == 1 && $table_count->leverage ==0 ){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-			$table * 20 + 10 +
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			, 2
-         );
-        }else if ($network['left']['count'] + $network['right']['count'] == 6 && $table_count->table == 1 && $table_count->leverage ==1 ){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-			$table * 20 + 10 +
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			, 2
-         );
-        }else if ($network['left']['count'] + $network['right']['count'] == 6 && $table_count == null){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-			$table * 10 +
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			,2
-        );
-        }else if ($network['left']['count'] + $network['right']['count'] == 6 && $table_count->table ==0 && $table_count->leverage ==0){                  
-		return round(
-            UserEarnings::calcDirectReferrals() + 
-			$table * 10 +
-           (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			,2
-        );
-        }
+		if ($table_count == null){
+        return round(
+            UserEarnings::calcDirectReferrals() 		           
+        , 0);
+		}else if($table_count->table_1==1 && $table_count->table_2==0){
+			return round(			
+			 300 +
+            UserEarnings::calcDirectReferrals() 
+        , 0);
+		}else if($table_count->table_1==1 && $table_count->table_2==1){
+			return round(			
+		    300 +
+            UserEarnings::calcDirectReferrals() 		
+        , 0);
+		}
+		else if($table_count->table_1==2 && $table_count->table_2==0){
+			return round(		
+			 1300 +
+            UserEarnings::calcDirectReferrals() 		
+        , 0);
+		}else if($table_count->table_1==2 && $table_count->table_2==1){
+			return round(		
+			 1300 +
+            UserEarnings::calcDirectReferrals() 		
+        , 0);
+		}
+		else if($table_count->table_1==21 && $table_count->table_2==0){
+			return round(		
+			1600 +
+            UserEarnings::calcDirectReferrals() 			
+        , 0);
+		}else if($table_count->table_1==21 && $table_count->table_2==1){
+			return round(		
+			1600 +
+            UserEarnings::calcDirectReferrals() 			
+        , 0);
+		}else if($table_count->table_1==21 && $table_count->table_2==20){
+			return round(		
+			2600 +
+            UserEarnings::calcDirectReferrals() 			
+        , 0);
+		}else if($table_count->table_1==21 && $table_count->table_2==21){
+			return round(		
+			2600 +
+            UserEarnings::calcDirectReferrals() 			
+        , 0);
+		}
 		else{
 			return round(
-            UserEarnings::calcDirectReferrals() + 			
-            (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2)
-			,2
-            );
+            UserEarnings::calcDirectReferrals()  			
+        , 0);
 		}
-	}
+    }
 
     public static function updateEarnings()
     {   
@@ -183,7 +144,7 @@ class UserEarnings extends \yii\db\ActiveRecord
 
     public static function calcDirectReferrals()
     {
-        return UserNetwork::countUnilevelMembers() * 20;
+        return UserNetwork::countUnilevelMembers() * 50;
     }
 
     public static function getEarnings()

@@ -59,7 +59,7 @@ $this->title = 'Home';
       <span class="info-box-icon bg-orange"><i class="fa fa-usd"></i></span>
       <div class="info-box-content">
         <span class="info-box-text">Earnings</span>
-        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?/*= (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) */?> </span>
+        <span class="info-box-number" style="text-align:center;line-height:40px"><?= Yii::$app->appConfig->getCurrencySymbol() ?> <?= (($member_count1-16)*5+($member_count2)*1)/($member_count1+$member_count2) ?> </span>
         <!--<a href="<?= \yii\helpers\Url::to(['/withdrawal/request']) ?>" class="btn btn-sm btn-default btn-block">Widthraw</a>-->
       </div>
     </div>

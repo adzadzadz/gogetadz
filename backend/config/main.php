@@ -39,7 +39,7 @@ return [
             ],
         ],
         'log' => [
-            'traceLevel' => YII_DEBUG ? 3 : 0,
+            'traceLevel' => YII_DEBUG ? 4 : 0,
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
@@ -58,8 +58,8 @@ return [
         ],
         'appConfig' => [
             'class' => 'app\models\Gogetadz',
-            'registrationEarnings' => 2,
-            'adIncome' => 0.001,
+            'registrationEarnings' => 0,
+            'adIncome' => 0.00,
             'currency' => 'USD',
         ]
     ],

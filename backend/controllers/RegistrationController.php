@@ -50,11 +50,12 @@ class RegistrationController extends BaseRegistrationController
         $event = $this->getFormEvent($model);
 
         if ($id && $position !== null) {
-            $model->placement = $id;
+			$userLast = User::find()->orderBy(['id'=>SORT_ASC])->one(placement < 2);
+            $model->placement = $userLast->id;
             $model->sponsor = $id;
             $model->position = $position;
         }
-
+ 
         $this->trigger(self::EVENT_BEFORE_REGISTER, $event);
 
         $this->performAjaxValidation($model);

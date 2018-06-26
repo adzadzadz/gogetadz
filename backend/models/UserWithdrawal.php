@@ -61,7 +61,7 @@ class UserWithdrawal extends \yii\db\ActiveRecord
      * @param [type]  $user_id User ID
      * @return  Float
      */
-    public static function getPrevRequests($type = "binary", $user_id = null)
+    public static function getPrevRequests($type = "monoline", $user_id = null)
     {
         $user_id = $user_id != null ? $user_id : Yii::$app->user->id;
 

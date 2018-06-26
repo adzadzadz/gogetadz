@@ -90,7 +90,7 @@ class Profile extends BaseProfile
             'public_email'   => \Yii::t('user', 'Email (public)'),
             'gravatar_email' => \Yii::t('user', 'Gravatar email'),
             'location'       => \Yii::t('user', 'Location'),
-            'website'        => \Yii::t('user', 'Website'),
+             'website'        => \Yii::t('user', 'Website'),
             'bio'            => \Yii::t('user', 'Bio'),
             'timezone'       => \Yii::t('user', 'Time zone'),
         ];
