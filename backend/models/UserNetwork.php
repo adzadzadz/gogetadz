@@ -80,7 +80,7 @@ class UserNetwork extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function getTreeByPosition($id, $position = 'left', $maxLevels = 3)
+    public static function getTreeByPosition($id, $position = 'left', $maxLevels = 3, $package = null)
     {
         $user = User::find()
             ->joinWith('network')
@@ -123,8 +123,8 @@ class UserNetwork extends \yii\db\ActiveRecord
 
                 if ($level == 0) {
                     $upline = $network[$user->id][0][0][0]['id'];
-                    $downline['left'] = self::getDownline($network[$user->id][0][0][0]['id'], 0);
-                    $downline['right'] = self::getDownline($network[$user->id][0][0][0]['id'], 1);
+                    $downline['left'] = self::getDownline($network[$user->id][0][0][0]['id'], 0, $package);
+                    $downline['right'] = self::getDownline($network[$user->id][0][0][0]['id'], 1, $package);
                 }
 
                 for ($position = 0; $position < 2; $position++) {
@@ -133,8 +133,8 @@ class UserNetwork extends \yii\db\ActiveRecord
                     #Start Binary Data
                     if ($level != 0) {
                       $upline = $network[$user->id][$level][$prevgroup][$position]['id'];
-                      $downline['left'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 0);
-                      $downline['right'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 1);
+                      $downline['left'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 0, $package);
+                      $downline['right'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 1, $package);
                     }
 
                     $network[$user->id][$level + 1][$makegroup]['0'] = [
@@ -186,12 +186,23 @@ class UserNetwork extends \yii\db\ActiveRecord
      * @param  string $type binary("placement") or unilevel("sponsor")
      * @return Object   app\models\UserNetwork
      */
-    public static function getDownline($id, $position, $type = 'placement')
+    public static function getDownline($id, $position, $type = 'placement', $package = null)
     {
-        return User::find()
+        if ($package) {
+            return User::find()
+                ->where([
+                    $type => $id, 
+                    UserNetwork::tableName() . '.position' => $position,
+                    UserNetwork::tableName() . '.package'  => $package
+                ])
+                ->joinWith('network')
+                ->all();
+        } else {
+            return User::find()
             ->where([$type => $id, UserNetwork::tableName() . '.position' => $position])
             ->joinWith('network')
             ->all();
+        }        
     }
 
     /**
