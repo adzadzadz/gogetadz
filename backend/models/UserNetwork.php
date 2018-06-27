@@ -66,11 +66,11 @@ class UserNetwork extends \yii\db\ActiveRecord
         $right = null;
 
         if ($leftUpline) {
-            $left = self::getTreeByPosition($leftUpline[0]->id, 'left', $maxLevels, $package);
+            $left = self::getTreeByPosition($leftUpline[0]->id, 'left', $maxLevels, 'placement', $package);
         }
         
         if ($rightUpline) {
-            $right = self::getTreeByPosition($rightUpline[0]->id, 'right', $maxLevels, $package);
+            $right = self::getTreeByPosition($rightUpline[0]->id, 'right', $maxLevels, 'placement', $package);
         }        
         
         return [
@@ -123,8 +123,8 @@ class UserNetwork extends \yii\db\ActiveRecord
 
                 if ($level == 0) {
                     $upline = $network[$user->id][0][0][0]['id'];
-                    $downline['left'] = self::getDownline($network[$user->id][0][0][0]['id'], 0, $package);
-                    $downline['right'] = self::getDownline($network[$user->id][0][0][0]['id'], 1, $package);
+                    $downline['left'] = self::getDownline($network[$user->id][0][0][0]['id'], 0, 'placement', $package);
+                    $downline['right'] = self::getDownline($network[$user->id][0][0][0]['id'], 1, 'placement', $package);
                 }
 
                 for ($position = 0; $position < 2; $position++) {
@@ -133,8 +133,8 @@ class UserNetwork extends \yii\db\ActiveRecord
                     #Start Binary Data
                     if ($level != 0) {
                       $upline = $network[$user->id][$level][$prevgroup][$position]['id'];
-                      $downline['left'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 0, $package);
-                      $downline['right'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 1, $package);
+                      $downline['left'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 0, 'placement', $package);
+                      $downline['right'] = self::getDownline($network[$user->id][$level][$prevgroup][$position]['id'], 1, 'placement', $package);
                     }
 
                     $network[$user->id][$level + 1][$makegroup]['0'] = [
